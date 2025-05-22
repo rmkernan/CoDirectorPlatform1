@@ -105,16 +105,69 @@ const handleSearch = debounce(fetchResults, 300);
 const handleSearch = debounce(fetchResults, 300);
 ```
 
-## ESLint Enforcement
+## ESLint Documentation Enforcement Strategy
+
+### Rationale
+
+To ensure consistent high-quality documentation throughout the codebase, we've implemented automated enforcement using ESLint. This approach was chosen because:
+
+1. **Consistency**: Ensures all developers follow the same documentation standards
+2. **Automation**: Catches documentation issues early in the development process
+3. **Integration**: Works with IDEs to provide real-time feedback during coding
+4. **Education**: Helps developers learn proper documentation patterns through feedback
+
+### Implementation
+
+Our ESLint configuration in `app/.eslintrc.js` includes comprehensive rules for documentation validation:
+
+```javascript
+// Documentation rules - excerpt from .eslintrc.js
+'jsdoc/require-jsdoc': ['warn', {
+  require: {
+    FunctionDeclaration: true,
+    MethodDefinition: true,
+    ClassDeclaration: true,
+    ArrowFunctionExpression: true,
+    FunctionExpression: true,
+  },
+  contexts: [
+    'TSInterfaceDeclaration',
+    'TSTypeAliasDeclaration',
+    'TSEnumDeclaration',
+  ],
+}],
+'jsdoc/require-description': ['warn', { descriptionStyle: 'tag' }],
+'jsdoc/require-param': 'warn',
+// ... additional rules
+```
+
+### Key Rules
 
 The project uses ESLint with the following documentation-related rules:
 
-- `jsdoc/require-jsdoc`: Requires JSDoc comments for functions, classes, and methods
-- `jsdoc/require-param`: Requires `@param` tags for function parameters
-- `jsdoc/require-returns`: Requires `@returns` for functions that return values
-- `notice/notice`: Enforces file header documentation
+- **Function Documentation**:
+  - `jsdoc/require-jsdoc`: Requires JSDoc comments for functions, classes, and methods
+  - `jsdoc/require-description`: Ensures functions have descriptions
+  
+- **Parameter Documentation**:
+  - `jsdoc/require-param`: Requires `@param` tags for function parameters
+  - `jsdoc/require-param-description`: Requires descriptions for parameters
+  - `jsdoc/require-param-type`: Enforces type annotations for parameters
 
-### Running Linter
+- **Return Value Documentation**:
+  - `jsdoc/require-returns`: Requires `@returns` for functions that return values
+  - `jsdoc/require-returns-description`: Requires descriptions for return values
+  - `jsdoc/require-returns-type`: Enforces type annotations for return values
+
+- **File Documentation**:
+  - `notice/notice`: Enforces file header documentation with required metadata
+  
+- **Type Documentation**:
+  - Rules applied to TypeScript interfaces, types, and enums
+
+### Workflow Integration
+
+#### Running Linter
 
 ```bash
 # Check for documentation issues
@@ -124,9 +177,30 @@ npm run lint
 npm run lint -- --fix
 ```
 
-### Pre-commit Hook
+#### IDE Integration
+
+VSCode and other IDEs will highlight documentation issues in real-time with the ESLint extension.
+
+#### Pre-commit Hook
 
 A pre-commit hook is configured to ensure all committed code meets documentation standards before being pushed to the repository.
+
+### Error Resolution
+
+When encountering documentation errors:
+
+1. Review the error message to understand what's missing
+2. Use the templates in this document as a reference
+3. Add the missing documentation with appropriate detail
+4. Run `npm run lint --fix` to verify the issue is resolved
+
+### Context7 MCP Integration
+
+When documenting code that uses third-party libraries:
+
+1. Check Context7 MCP for the latest library documentation
+2. Include relevant MCP references in documentation comments
+3. Document any deviations from recommended patterns
 
 ## Version History
 

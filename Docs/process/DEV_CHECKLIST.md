@@ -114,10 +114,11 @@ USER: I'm using SWE-1 for this task
 - [ ] Follow folder structure defined in TechnicalPatterns.md Section 4
 - [ ] Keep file length under 400 lines (BestPractices.md Section 2)
 - [ ] Keep function/component length under 40 lines (BestPractices.md Section 2)
-- [ ] Add JSDoc comments for all functions, components, and types
+- [ ] Add JSDoc comments for all functions, components, and types (see [DOCUMENTATION_STANDARDS.md](./DOCUMENTATION_STANDARDS.md))
 - [ ] Include clear, descriptive comments explaining complex logic
 - [ ] Place TypeScript interfaces at the top of files
 - [ ] Name prop interfaces with "Props" suffix (e.g., MessageItemProps)
+- [ ] Verify code follows ESLint documentation rules (run `npm run lint`)
 - [ ] Make regular, atomic commits with conventional commit messages
 
 ## Before Committing Code

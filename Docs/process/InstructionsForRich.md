@@ -34,6 +34,7 @@ This document provides guidance for effectively managing AI-assisted development
 4. **TechnicalPatterns.md** - Implementation patterns and code examples
 5. **BestPractices.md** - Development guidelines and standards
 6. **DEV_CHECKLIST.md** - Quick reference for day-to-day development activities
+7. **DOCUMENTATION_STANDARDS.md** - Comprehensive documentation guidelines with ESLint enforcement
 
 ## 🔍 Git & Version Control Reference (For Your Information)
 
@@ -43,6 +44,16 @@ This document provides guidance for effectively managing AI-assisted development
 - **GitHub Templates:** Use `.github/PULL_REQUEST_TEMPLATE.md` and `.github/ISSUE_TEMPLATE/*` for all PRs and issues.
 - **Session Handoff:** Always include Git context (branch, commit, PR, CI status) in `SessionHandoff.md`.
 - **See:** `GitWorkflow.md` for full details and rationale.
+
+## 📝 Documentation Standards & ESLint Enforcement
+
+- **Documentation Standard:** All code must follow the guidelines in `DOCUMENTATION_STANDARDS.md`
+- **File Headers:** Every file must include a header comment with @file, @description, @created, @lastUpdated, and @module tags
+- **JSDoc Comments:** All functions, components, and types must have comprehensive JSDoc annotations
+- **ESLint Validation:** Our ESLint configuration enforces documentation standards (run `npm run lint` to check)
+- **Automatic Enforcement:** Pre-commit hooks will prevent commits of code with missing or incomplete documentation
+- **Workflow:** For new components, check the templates in `DOCUMENTATION_STANDARDS.md` before implementation
+- **Context7 MCP:** Always reference Context7 MCP documentation in comments when using third-party libraries
 
 ## 📋 PROMPT TEMPLATES FOR AI INTERACTION
 
@@ -54,6 +65,8 @@ _The sections below contain ready-to-use prompts. Copy and paste the text inside
 Let's continue development on the Co-Director Platform. Please complete the development checklist and provide a status overview:
 
 Current branch: [output of 'git branch --show-current']
+
+Please review our documentation standards in DOCUMENTATION_STANDARDS.md and ensure all new code follows these standards with proper JSDoc annotations and file headers.
 
 Based on our current progress, please recommend which tasks we should focus on in this session and why. I'd like your expert guidance on prioritization.
 ```
@@ -86,6 +99,51 @@ I need to understand the technical specifications for [component/feature]. Pleas
 
 ```
 I need implementation patterns for [specific feature/component]. Please check TechnicalPatterns.md section [X] for relevant code examples and approaches.
+```
+
+### Documentation Standards Review
+
+```
+Please review the code in [file/directory] for compliance with our documentation standards. Specifically check for:
+1. Proper file headers with @file, @description, @created, @lastUpdated, and @module tags
+2. JSDoc comments for all functions, components, and types
+3. Clear descriptions of parameters and return values
+4. Documentation of complex logic
+
+Suggest improvements based on DOCUMENTATION_STANDARDS.md and apply ESLint fixes where necessary.
+```
+
+### Comprehensive Documentation Audit
+
+```
+I'd like to conduct a comprehensive documentation audit of our codebase to ensure all files follow our documentation standards. Please help me with this process:
+
+1. First, inventory all TypeScript/React files in the project, categorizing them by:
+   - Components (common, layout, feature-specific)
+   - Hooks
+   - Utilities
+   - Type definitions
+   - Configuration files
+
+2. For each category, identify files missing these required documentation elements:
+   - File headers with metadata (file, description, created, lastUpdated, module)
+   - JSDoc annotations for components, functions, and types
+   - Parameter and return value documentation
+   - Inline comments for complex logic
+
+3. Prioritize fixes starting with:
+   - Core components in the component hierarchy
+   - Shared utilities and hooks
+   - Type definitions used across the codebase
+
+4. For each file needing improvement:
+   - Apply the appropriate template from DOCUMENTATION_STANDARDS.md
+   - Run ESLint to verify documentation compliance
+   - Ensure Context7 MCP references are included where relevant
+
+5. Create a summary of documentation improvements for inclusion in our SessionHandoff.md
+
+The goal is to establish a solid documentation foundation before expanding the codebase further.
 ```
 
 ### Best Practice Reference
