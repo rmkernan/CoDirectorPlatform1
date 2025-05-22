@@ -2,7 +2,7 @@
 
 <!--
 Created: 2025-05-22, 02:57 PM ET
-Last Updated: 2025-05-22, 04:00 PM ET
+Last Updated: 2025-05-22, 04:39 PM ET
 -->
 
 > **Instructions for Rich, Human Project Manager**
@@ -12,15 +12,28 @@ Last Updated: 2025-05-22, 04:00 PM ET
 > 
 > All text in ```code blocks``` represents exact prompts to copy/paste to the AI assistant.
 
+## 🔍 Pre-Session Checklist
+
+**Note:** The AI will now automatically complete this checklist at the beginning of each conversation when provided with the Session Start prompt below.
+
+Before starting any development conversation, ensure these steps are completed (for details see [DEV_CHECKLIST.md](./DEV_CHECKLIST.md)):
+
+- [ ] Verify current Git branch (`git branch --show-current`)
+- [ ] Create feature branch if needed with model identifier if relevant (`git checkout -b feature/X-Y-description[-model]`)
+- [ ] Push branch to remote (`git push -u origin feature/X-Y-description[-model]`)
+- [ ] Check DevProgress.md for current task status
+- [ ] Review latest SessionHandoff.md entry
+
 ## 🔍 Overview
 
-This document provides guidance for effectively managing AI-assisted development sessions for the Co-Director Platform. We use a structured approach with six interconnected documents:
+This document provides guidance for effectively managing AI-assisted development sessions for the Co-Director Platform. We use a structured approach with these interconnected documents:
 
 1. **DevProgress.md** - Main progress tracker with task status
 2. **SessionHandoff.md** - Detailed handoff context between sessions
 3. **TDD-Index.md** - Navigation aid for the Technical Design Document
 4. **TechnicalPatterns.md** - Implementation patterns and code examples
 5. **BestPractices.md** - Development guidelines and standards
+6. **DEV_CHECKLIST.md** - Quick reference for day-to-day development activities
 
 ## 🔍 Git & Version Control Reference (For Your Information)
 
@@ -38,13 +51,9 @@ _The sections below contain ready-to-use prompts. Copy and paste the text inside
 ### Session Start Instructions
 
 ```
-Let's continue development on the Co-Director Platform. Please:
+Let's continue development on the Co-Director Platform. Please complete the development checklist and provide a status overview:
 
-1. Review DevProgress.md to understand our current status
-2. Check the latest entry in SessionHandoff.md for detailed context
-3. Use TDD-Index.md to locate relevant technical specifications
-4. Reference TechnicalPatterns.md for implementation patterns
-5. Follow BestPractices.md for development standards
+Current branch: [output of 'git branch --show-current']
 
 Based on our current progress, please recommend which tasks we should focus on in this session and why. I'd like your expert guidance on prioritization.
 ```
@@ -103,14 +112,34 @@ I notice we might be approaching context limits. Let's wrap up this session and 
 ### Session End Instructions
 
 ```
-Let's wrap up this development session. Please:
-
-1. Update DevProgress.md with our completed tasks and current status
-2. Create a new entry in SessionHandoff.md with today's context
-3. Document which implementation patterns from TechnicalPatterns.md were applied
-4. Note which guidelines from BestPractices.md were followed
-5. Recommend specific tasks for our next session based on dependencies and priority
+Let's wrap up this development session. Please complete the session handoff checklist and prepare for the next session.
 ```
+
+**What the AI will do with this prompt:**
+
+1. ✅ Complete a pre-handoff checklist:
+   - Verify all code changes are committed and pushed
+   - Check that code follows project patterns and best practices
+   - Confirm all tasks are properly marked in DevProgress.md
+
+2. ✅ Update DevProgress.md with:
+   - Completed tasks marked with ✅
+   - In-progress tasks marked with 🔄
+   - Updated timestamps
+   - Any new technical decisions logged
+
+3. ✅ Create a comprehensive SessionHandoff.md entry including:
+   - Session summary with duration and accomplishments
+   - Current development state with task status
+   - Implementation context with key files modified
+   - Git context with branch and commit information
+   - Technical patterns and practices applied
+   - Specific tasks recommended for the next session
+
+4. ✅ Provide a session summary with:
+   - Key accomplishments
+   - Current status
+   - Next steps
 
 ### Recovery After Context Reset
 

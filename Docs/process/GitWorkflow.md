@@ -1,7 +1,7 @@
 # Co-Director Platform: Git Workflow Guide
 
 **Created:** 2025-05-22, 03:45 PM ET  
-**Last Updated:** 2025-05-22, 03:45 PM ET
+**Last Updated:** 2025-05-22, 04:28 PM ET
 
 ## Overview
 
@@ -36,15 +36,32 @@ git checkout -b feature/0-1-initialize-vite
 
 ## Branching Strategy
 
-We use a simplified GitHub Flow with semantic branch naming:
+We use a simplified GitHub Flow with semantic branch naming that includes model information when relevant:
 
 | Branch Type | Purpose | Naming Convention | Example |
 |-------------|---------|-------------------|---------|
-| `feature/*` | New functionality | `feature/<task-id>-<description>` | `feature/1-3-chat-component` |
-| `bugfix/*` | Fix issues | `bugfix/<issue-id>-<description>` | `bugfix/23-message-display` |
-| `refactor/*` | Code improvements | `refactor/<task-id>-<description>` | `refactor/chat-state` |
-| `docs/*` | Documentation only | `docs/<description>` | `docs/update-readme` |
-| `release/*` | Release preparation | `release/v<version>` | `release/v1.0.0` |
+| `feature/*` | New functionality | `feature/<task-id>-<description>[-<model>]` | `feature/1-3-chat-component-swe1` |
+| `bugfix/*` | Fix issues | `bugfix/<issue-id>-<description>[-<model>]` | `bugfix/23-message-display-s37` |
+| `refactor/*` | Code improvements | `refactor/<task-id>-<description>[-<model>]` | `refactor/chat-state-swe1` |
+| `docs/*` | Documentation only | `docs/<description>[-<model>]` | `docs/update-readme-s37` |
+| `release/*` | Release preparation | `release/v<version>[-<model>]` | `release/v1.0.0-swe1` |
+
+### Model Identifiers
+
+When working with different AI models, append these identifiers to branch names:
+
+- `-swe1` - Windsurf SWE-1 model
+- `-s37` - Sonnet 3.7 model
+- `-gpt4` - GPT-4 model
+- `-claude` - Claude model
+
+Example: `feature/0-1-initialize-vite-swe1`
+
+### When to Include Model Information
+
+- **Include model identifier** when the branch contains work specific to a particular AI model's behavior or output
+- **Omit model identifier** for model-agnostic work (most frontend components, documentation, etc.)
+- **Update model identifier** if switching models during development (create a new branch)
 
 ## Commit Messages
 
@@ -161,6 +178,48 @@ Update your SessionHandoff.md entries to include:
 * **Related PR:** [PR link if applicable]
 * **CI Status:** [passing/failing]
 ```
+
+## Branch Verification Protocol
+
+To ensure we're always working on the correct branch, we've implemented a mandatory branch verification process:
+
+### Automatic Branch Verification
+
+1. **Start of Each Conversation**:
+   - First action in any development session must be to check the current branch
+   - Create a feature branch if not already on one
+
+2. **Pre-Session Checklist**:
+   ```
+   - [ ] Verify current branch (`git branch --show-current`)
+   - [ ] Create feature branch if needed (`git checkout -b feature/X-Y-description`)
+   - [ ] Push branch to remote (`git push -u origin feature/X-Y-description`)
+   ```
+
+3. **Git Aliases for Streamlined Workflow**:
+
+   Add these to your `.gitconfig`:
+   ```
+   [alias]
+     start-task = "!f() { git checkout -b \"feature/$1\" && git push -u origin \"feature/$1\"; }; f"
+     task-done = "!f() { git add . && git commit -m \"$1\" && git push; }; f"
+   ```
+
+   Usage:
+   ```bash
+   # Start new task
+   git start-task 0-1-initialize-vite
+
+   # Commit and push changes
+   git task-done "feat(setup): initialize vite project"
+   ```
+
+### Pre-Commit Verification (Coming Soon)
+
+We plan to implement Git hooks to:
+- Verify branch naming conventions
+- Validate commit message format
+- Prevent direct commits to main
 
 ## Questions or Issues?
 

@@ -1,6 +1,6 @@
 # Co-Director Platform: Development Progress Tracker
 
-**Last Updated:** 2025-05-22, 02:50 PM ET  
+**Last Updated:** 2025-05-22, 04:35 PM ET  
 **Current Status:** Pre-implementation
 
 ## Quick Reference
@@ -24,6 +24,7 @@ The Co-Director Platform uses five interconnected documents to track development
 3. **technical/TDD-Index.md** - Navigation aid for the Technical Design Document
 4. **technical/TechnicalPatterns.md** - Implementation patterns and code examples
 5. **process/BestPractices.md** - Development guidelines and standards
+6. **process/DEV_CHECKLIST.md** - Quick reference development checklist
 
 To continue development, always:
 1. Check **process/DevProgress.md** for current task status
@@ -31,6 +32,7 @@ To continue development, always:
 3. Use **technical/TDD-Index.md** to find relevant technical specifications
 4. Refer to **technical/TechnicalPatterns.md** for implementation patterns
 5. Follow guidelines in **process/BestPractices.md**
+6. Use **process/DEV_CHECKLIST.md** as a quick reference during development
 
 ## Task Tracking
 
@@ -38,7 +40,7 @@ To continue development, always:
 
 | Task ID | Description | Status | TDD Reference | Dependencies | Notes |
 |---------|-------------|--------|---------------|--------------|-------|
-| 0.1 | Initialize Vite project | 🔄 Next | 6.1 (1950-2020) | None | |
+| 0.1 | Initialize Vite project | 🔄 In Progress (SWE-1) | 6.1 (1950-2020) | None | Using Windsurf SWE-1 model for initial setup |
 | 0.2 | Install dependencies | ⏱️ Pending | 6.1 (1950-2020) | 0.1 | |
 | 0.3 | Install Material UI | ⏱️ Pending | 6.1, 6.2 | 0.1, 0.2 | |
 | 0.4 | Install Zustand | ⏱️ Pending | 6.1, 4.1 | 0.1, 0.2 | |
