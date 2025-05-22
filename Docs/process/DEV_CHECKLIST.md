@@ -5,6 +5,34 @@
 
 This checklist serves as a quick reference to ensure consistent development practices across the Co-Director Platform project.
 
+## Context7 MCP Usage Guidelines
+
+### When to Use Context7 MCP
+- [ ] **ALWAYS** use Context7 MCP when:
+  - Checking package/documentation compatibility
+  - Researching best practices for libraries/frameworks
+  - Investigating error messages or warnings
+  - Needing up-to-date API references
+  - Working with new or unfamiliar technologies
+  - Verifying implementation patterns
+
+### How to Use Context7 MCP
+1. **Before Searching**:
+   - [ ] Identify the specific library/technology
+   - [ ] Formulate clear, specific questions
+   - [ ] Note the current version being used
+
+2. **Documentation Lookup**:
+   - [ ] Use `mcp1_resolve-library-id` to find the correct library
+   - [ ] Use `mcp1_get-library-docs` to retrieve documentation
+   - [ ] Always check version compatibility
+
+3. **After Retrieval**:
+   - [ ] Review the documentation thoroughly
+   - [ ] Apply only the relevant parts
+   - [ ] Document any important findings in code comments
+   - [ ] Update relevant documentation if needed
+
 ## Before Starting Each Development Session
 
 ### 1. Model Verification (CRITICAL)
@@ -76,6 +104,13 @@ USER: I'm using SWE-1 for this task
 
 ## During Development
 
+### Context7 MCP Integration
+- [ ] **BEFORE** implementing a new feature, check for existing patterns using Context7 MCP
+- [ ] **WHEN** encountering an error, search for solutions using Context7 MCP
+- [ ] **AFTER** finding a solution, document the resolution in code comments
+- [ ] **FOR** any third-party libraries, verify the correct usage with Context7 MCP
+
+### Development Practices
 - [ ] Follow folder structure defined in TechnicalPatterns.md Section 4
 - [ ] Keep file length under 400 lines (BestPractices.md Section 2)
 - [ ] Keep function/component length under 40 lines (BestPractices.md Section 2)
@@ -87,8 +122,31 @@ USER: I'm using SWE-1 for this task
 
 ## Before Committing Code
 
-- [ ] Check that all files include creation/update timestamps
+#### Documentation Verification
+- [ ] Verify all new or modified files have proper JSDoc headers with:
+  - [ ] @file - File name
+  - [ ] @description - Clear description of purpose
+  - [ ] @created - Creation date (YYYY-MM-DD)
+  - [ ] @lastUpdated - Current date (YYYY-MM-DD)
+  - [ ] @module - Module path
+- [ ] Ensure all functions/components have complete JSDoc comments:
+  - [ ] @description - What and why
+  - [ ] @param - All parameters with types and descriptions
+  - [ ] @returns - Return value description and type
+  - [ ] @throws - Any potential errors
+  - [ ] @example - Usage examples for complex functions
+- [ ] Check that complex logic has inline comments explaining the "why"
+- [ ] Verify all TypeScript types/interfaces are documented
+
+#### Context7 MCP Checks
+- [ ] Verify all library usages match Context7 MCP documentation
+- [ ] Ensure any code patterns follow the latest best practices
+- [ ] Document any Context7 MCP references in code comments
+
+#### Code Quality
+- [ ] Run `npm run lint` and fix all documentation warnings/errors
 - [ ] Ensure code follows project patterns from TechnicalPatterns.md
+- [ ] Verify all new components follow the documentation standards in DOCUMENTATION_STANDARDS.md
 - [ ] Verify no sensitive data is being committed
 - [ ] Run linter: `npm run lint`
 - [ ] Run tests: `npm test`
