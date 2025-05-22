@@ -1,0 +1,25 @@
+# Auto detect text files and perform LF normalization
+* text=auto eol=lf
+
+# Source code
+*.ts    text diff=typescript
+*.tsx   text diff=typescript
+*.js    text
+*.jsx   text
+*.json  text
+*.html  text diff=html
+*.css   text diff=css
+*.scss  text diff=css
+*.md    text diff=markdown
+
+# Graphics
+*.png   binary
+*.jpg   binary
+*.jpeg  binary
+*.gif   binary
+*.svg   text
+
+# Exclude files from exporting
+.gitattributes export-ignore
+.gitignore     export-ignore
+.github        export-ignore

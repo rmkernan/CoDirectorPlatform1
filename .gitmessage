@@ -1,0 +1,22 @@
+# <type>(<scope>): <short summary>
+# |        |         |
+# |        |         +-> Summary in present tense, not capitalized, no period at the end
+# |        +-> Optional scope: feature name (setup, chat, history, etc.)
+# +-> Type: feat, fix, docs, style, refactor, test, chore
+#
+# [optional body]
+# Explain WHY this change is being made, not WHAT changed
+#
+# [optional footer(s)]
+# Mention issues: "Fixes #123" or "Closes #456"
+#
+# Types:
+#  feat:     A new feature
+#  fix:      A bug fix
+#  docs:     Documentation only changes
+#  style:    Formatting, missing semicolons, etc; no code change
+#  refactor: Code change that neither fixes a bug nor adds a feature
+#  test:     Adding or modifying tests
+#  chore:    Changes to the build process, dependencies, etc.
+#
+# For full specifications: https://www.conventionalcommits.org/
