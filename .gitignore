@@ -8,6 +8,9 @@ node_modules/
 
 # Production
 /build
+.windsurf/*
+!.windsurf/rules/
+!.windsurf/rules/*.md
 /dist
 /out
 

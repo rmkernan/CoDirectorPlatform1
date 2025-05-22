@@ -1,8 +1,20 @@
 # Co-Director Platform: AI-Assisted Development Guide
 
-## Overview
+<!--
+Created: 2025-05-22, 02:57 PM ET
+Last Updated: 2025-05-22, 04:00 PM ET
+-->
 
-This document provides guidance for effectively managing AI-assisted development sessions for the Co-Director Platform. We use a structured approach with five interconnected documents:
+> **Instructions for Rich, Human Project Manager**
+> This document is your operational guide for managing AI-assisted development sessions. It contains:
+> - **📋 PROMPT TEMPLATES** - Text blocks to copy/paste when interacting with the AI
+> - **🔍 REFERENCE INFORMATION** - Guidelines and best practices for your reference only
+> 
+> All text in ```code blocks``` represents exact prompts to copy/paste to the AI assistant.
+
+## 🔍 Overview
+
+This document provides guidance for effectively managing AI-assisted development sessions for the Co-Director Platform. We use a structured approach with six interconnected documents:
 
 1. **DevProgress.md** - Main progress tracker with task status
 2. **SessionHandoff.md** - Detailed handoff context between sessions
@@ -10,20 +22,31 @@ This document provides guidance for effectively managing AI-assisted development
 4. **TechnicalPatterns.md** - Implementation patterns and code examples
 5. **BestPractices.md** - Development guidelines and standards
 
-## Session Management Instructions
+## 🔍 Git & Version Control Reference (For Your Information)
+
+- **Branching:** Always start new work on a feature branch named `feature/{task-id}-{description}` (e.g., `feature/0-1-initialize-vite`), as described in `GitWorkflow.md`.
+- **Commit Messages:** Use Conventional Commits format (`{type}({scope}): {description}`), referencing the task/feature when possible. Types: feat, fix, docs, style, refactor, test, chore.
+- **.windsurf/rules:** All project-specific rules, code quality, and structure conventions are in `.windsurf/rules/*.md`. These are now tracked in Git.
+- **GitHub Templates:** Use `.github/PULL_REQUEST_TEMPLATE.md` and `.github/ISSUE_TEMPLATE/*` for all PRs and issues.
+- **Session Handoff:** Always include Git context (branch, commit, PR, CI status) in `SessionHandoff.md`.
+- **See:** `GitWorkflow.md` for full details and rationale.
+
+## 📋 PROMPT TEMPLATES FOR AI INTERACTION
+
+_The sections below contain ready-to-use prompts. Copy and paste the text inside the code blocks, replacing placeholders in [brackets] with your specific information._
 
 ### Session Start Instructions
 
 ```
 Let's continue development on the Co-Director Platform. Please:
 
-1. Review DevProgress.md to understand our current status and next tasks
+1. Review DevProgress.md to understand our current status
 2. Check the latest entry in SessionHandoff.md for detailed context
 3. Use TDD-Index.md to locate relevant technical specifications
-4. Reference TechnicalPatterns.md for implementation examples
+4. Reference TechnicalPatterns.md for implementation patterns
 5. Follow BestPractices.md for development standards
 
-Today, let's focus on [Phase X] tasks [Task IDs], specifically [brief description].
+Based on our current progress, please recommend which tasks we should focus on in this session and why. I'd like your expert guidance on prioritization.
 ```
 
 ### Referencing Documentation
@@ -64,14 +87,14 @@ What are our guidelines for [specific development concern]? Please check BestPra
 
 ### Token Limit Management
 
-Watch for these signs that you're approaching context limits:
+🔍 **FOR YOUR REFERENCE:** Watch for these signs that you're approaching context limits:
 
 - Responses become less specific or coherent
 - Previous context seems to be forgotten
 - Long pauses before responses
 - Repetition of information
 
-If you notice these signs, initiate a session wrap-up:
+📋 **PROMPT TO USE** when you notice these signs:
 
 ```
 I notice we might be approaching context limits. Let's wrap up this session and create a handoff, ensuring we document which technical patterns and best practices we've applied.
@@ -101,7 +124,7 @@ It appears we've had a context reset. Please:
 5. Resume from task [last completed task + 1] focusing on [specific component/feature]
 ```
 
-## Best Practices for AI-Assisted Development
+## 🔍 REFERENCE INFORMATION (Not Prompts)
 
 ### Document Updates
 
@@ -145,15 +168,15 @@ When making important technical decisions, document them in both DevProgress.md 
 - Impact on architecture or other components
 - Related tasks or components
 
-## Development Conversation Flow
+## 🔍 Development Conversation Flow (For Your Reference)
 
 For optimal development flow:
 
-1. **Start**: Review current status and context
-2. **Plan**: Identify specific tasks for this session
-3. **Reference**: Consult technical patterns and best practices documentation
+1. **Start**: Review current status and context using the Session Start prompt
+2. **Plan**: Identify specific tasks for this session 
+3. **Reference**: Consult technical patterns and best practices documentation using the Reference prompts
 4. **Execute**: Complete tasks with continuous reference to documentation
-5. **Document**: Update progress trackers as tasks complete
-6. **Handoff**: Create detailed context for the next session
+5. **Document**: Update progress trackers as tasks complete using the Mid-Session Check prompt
+6. **Handoff**: Create detailed context for the next session using the Session End prompt
 
 Following this structured approach ensures consistent progress and smooth transitions between development sessions, even with AI context limitations.
