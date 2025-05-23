@@ -1,7 +1,7 @@
 # Co-Director Platform: AI-Assisted Development Guide
 
 **Created:** 2025-05-22, 02:57 PM ET  
-**Last Updated:** 2025-05-23, 08:25 ET
+**Last Updated:** 2025-05-23, 11:43 ET
 
 ## Introduction
 
@@ -83,7 +83,7 @@ The project contains the following important documents that you should be aware 
 | **CodeStandards.md** | Docs/technical/ | **Primary reference** for code organization & basic documentation | Start here for all implementation tasks |
 | **DOCUMENTATION_STANDARDS.md** | Docs/process/ | Comprehensive JSDoc reference | When CodeStandards.md doesn't have enough detail |
 | **LLM_FILE_CREATION_GUIDELINES.md** | Docs/process/ | Specific file header templates | **Always reference when creating new files** |
-| **BestPractices.md** | Docs/process/ | Git workflow, PRs, and code reviews | For process-related questions |
+| **BestPractices.md** | Docs/process/ | General development guidelines, code quality, file/function length limits, and review processes. For specific Git commands and branching strategy, see `GitWorkflow.md`. | For process-related questions |
 | **TechnicalPatterns.md** | Docs/technical/ | Implementation patterns | For consistent code structure and patterns |
 | **TDD.md** | Docs/technical/ | Technical Design Document | **AFTER** consulting TDD-Index.md for relevant sections |
 | **ADD.md** | Docs/technical/ | Architectural Design Document | For high-level architectural patterns |
@@ -107,6 +107,8 @@ After completing the document navigation process, provide a concise task plan:
      - Build logically on previously completed work
      - Can be accomplished in a single conversation without approaching token limits
 
+**Guideline on Task Proposal Granularity:** When identifying tasks, aim to propose 1-2 primary tasks from `Implementation.md` at a time. This defines a manageable chunk of work for review and iteration. The USER will confirm the final scope. This approach also supports prioritizing frequent commits within a feature branch after each distinct task is completed and approved.
+
 2. **Technical Implementation Details:**
    - For each proposed task, summarize the specific implementation steps from Implementation.md
    - Reference any relevant architecture details from ADD.md or TDD.md (using TDD-Index.md first)
@@ -128,9 +130,11 @@ After completing the document navigation process, provide a concise task plan:
 Please review ONLY the "Quick Reference: Branching Strategy" section at the top of GitWorkflow.md, then:
 
 1. Our last conversation was C4. Based on the tasks we'll work on, propose a new branch name following our convention:
-   - For feature development: `c5-feature/[task-range]-[description]-[model]`
-   - For bug fixes: `c5-bugfix/[brief-description]-[model]`
+   - For feature development: `c5-feature/[task#]-[description]-[model]`
+   - For bug fixes: `c5-fix/[issue#]-[brief-description]-[model]`
    - For documentation: `c5-docs/[description]-[model]`
+   - For refactoring: `c5-refactor/[task#]-[description]-[model]`
+   - For releases: `c5-release/v[version]-[model]`
 
 2. Provide the exact Git commands for:
    - Checking out develop
@@ -186,15 +190,21 @@ Let's proceed. For the first task:
       - Document any Context7 MCP references in your code comments
       - Use Brave/Perplexity MCP if additional external information is needed
 
-2. Before coding, concisely inform me of:
+2. **Proactive MCP Check:**
+   - After reviewing the project documentation and patterns in step 1, consider if an additional MCP call (Context7 for specific libraries/frameworks, Brave/Perplexity for general best practices, alternative solutions, or external validation) would significantly enhance your understanding, improve the quality of the proposed solution, or mitigate risks for the current task.
+   - If you identify a benefit, clearly state your intention to use a specific MCP and your reasoning for it. This will be part of your summary in the next step.
+
+3. Before coding, concisely inform me of:
    - Any project documents you think would be helpful to reference
    - Any questions or clarifications needed from me
    - Your understanding of how this implementation fits into the overall architecture
-   - Any technical decisions that need to be made before proceeding
+   - Your proposed plan for implementing the task (briefly)
 
-3. I'd like you to walk me through your implementation approach before writing code, highlighting:
-   - How you'll ensure adherence to our documentation standards
-   - How we'll test this implementation
+4. Implement the task:
+   - Create or edit files as needed
+   - Write unit/component tests where applicable
+   - Adhere to all documented standards and patterns
+   - Explain your code clearly
 
 Let's start with a high-level overview, then proceed step by step with the implementation.
 ```
