@@ -2,9 +2,9 @@
  * @file main.tsx
  * @description Entry point of the React application that bootstraps the app with React 18 features.
  * This file initializes font resources, creates the React root, and renders the application
- * within a StrictMode wrapper and RouterProvider for routing functionality.
+ * within a StrictMode wrapper and RouterProvider using HashRouter for reliable client-side routing.
  * @created 2025-05-22 19:52 ET
- * @lastUpdated 2025-05-22 22:20 ET
+ * @lastUpdated 2025-05-22 22:48 ET
  * @module main
  */
 
@@ -50,7 +50,8 @@ const root = createRoot(container);
  * - React.StrictMode for additional development checks
  * - ThemeProvider for Material-UI theming
  * - CssBaseline for consistent baseline styles
- * - RouterProvider for client-side routing
+ * - RouterProvider with HashRouter configuration for reliable client-side routing
+ * - HashRouter allows direct URL access and page refreshes without server configuration
  */
 root.render(
   <React.StrictMode>
