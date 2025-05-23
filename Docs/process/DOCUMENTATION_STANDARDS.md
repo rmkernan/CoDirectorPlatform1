@@ -16,11 +16,28 @@ Every source file must start with a JSDoc header containing:
 /**
  * @file [filename.ext]
  * @description [Brief description of the file's purpose and functionality]
- * @created YYYY-MM-DD
- * @lastUpdated YYYY-MM-DD
+ * @created YYYY-MM-DD HH:MM ET
+ * @lastUpdated YYYY-MM-DD HH:MM ET
  * @module [path/from/src]
  */
 ```
+
+## Timestamp Format
+
+All timestamps in file headers must follow this format:
+- **Format**: `YYYY-MM-DD HH:MM ET`
+- **Time Zone**: Eastern Time (ET)
+- **24-hour format**: Use 24-hour format (e.g., 14:30 for 2:30 PM)
+- **Leading zeros**: Include leading zeros for single-digit hours and minutes
+- **Date format**: YYYY-MM-DD (ISO 8601)
+- **Time separator**: Use colon (`:`) between hours and minutes
+- **Time zone suffix**: Always use `ET` for Eastern Time
+
+**Examples**:
+- `2025-05-22 09:15 ET` (9:15 AM ET)
+- `2025-05-22 14:30 ET` (2:30 PM ET)
+
+**Note**: The `@created` timestamp should reflect when the file was first created, and `@lastUpdated` should be updated whenever significant changes are made to the file.
 
 ## Component Documentation
 

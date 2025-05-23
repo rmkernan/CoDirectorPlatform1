@@ -3,7 +3,7 @@
  * @description ESLint configuration for Co-Director Platform.
  * Enforces code quality and documentation standards across the codebase.
  * @created 2025-05-22 19:58 ET
- * @lastUpdated 2025-05-22 19:58 ET
+ * @lastUpdated 2025-05-22 21:49 ET
  * @module config
  */
 
@@ -25,7 +25,8 @@ module.exports = {
     '@typescript-eslint',
     'react-hooks',
     'jsx-a11y',
-    'jsdoc'
+    'jsdoc',
+    'notice'
   ],
   rules: {
     // React rules
@@ -50,16 +51,23 @@ module.exports = {
         ],
       },
     ],
-    'jsdoc/require-description': 'warn',
-    'jsdoc/require-param': 'warn',
-    'jsdoc/require-param-description': 'warn',
-    'jsdoc/require-param-name': 'warn',
-    'jsdoc/require-param-type': 'warn',
-    'jsdoc/require-returns': 'warn',
-    'jsdoc/require-returns-check': 'warn',
-    'jsdoc/require-returns-description': 'warn',
-    'jsdoc/require-returns-type': 'warn',
-    'jsdoc/require-file-overview': 'warn',
+    'jsdoc/require-description': 'error',
+    'jsdoc/require-param': 'error',
+    'jsdoc/require-param-description': 'error',
+    'jsdoc/check-param-names': 'error',
+    'jsdoc/require-param-type': 'error',
+    'jsdoc/require-returns': 'error',
+    'jsdoc/require-returns-check': 'error',
+    'jsdoc/require-returns-description': 'error',
+    'jsdoc/require-returns-type': 'error',
+    'jsdoc/require-file-overview': 'error',
+    
+    // File header notice - enforce timestamps in the exact format YYYY-MM-DD HH:MM ET
+    'notice/notice': ['error', {
+      mustMatch: '^ @file .+\n \\* @description .+\n \\* @created \\d{4}-\\d{2}-\\d{2} \\d{2}:\\d{2} ET\n \\* @lastUpdated \\d{4}-\\d{2}-\\d{2} \\d{2}:\\d{2} ET',
+      templateFile: '.header-template.js',
+      onNonMatchingHeader: 'replace'
+    }],
   },
   settings: {
     react: {

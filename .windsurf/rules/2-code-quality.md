@@ -8,7 +8,7 @@ trigger: always_on
 2. **Documentation & Comments**
    - All code must include clear, descriptive comments that explain the 'why' behind complex logic, with JSDoc annotations for all functions, components, and types.
    - Each file should begin with a header comment describing its purpose and relationship to the overall architecture.
-   - All files should include a creation and last updated timestamp.
+   - All files should include a creation and last updated timestamp in the format `YYYY-MM-DD HH:MM ET` (e.g., `2025-05-22 21:57 ET`). This format must be strictly followed for all timestamps.
 
 3. **TypeScript & Interfaces**
    - When writing TypeScript interfaces, place them at the top of the file.
