@@ -2,8 +2,9 @@
  * @file Layout.tsx
  * @description Main layout component that structures the application UI.
  * Includes responsive AppBar, Sidebar and main content area with proper spacing.
+ * Features smooth transitions for mobile views and optimized scrolling behavior.
  * @created 2025-05-22 19:52 ET
- * @lastUpdated 2025-05-22 19:52 ET
+ * @lastUpdated 2025-05-22 20:40 ET
  * @module components/layout/Layout
  */
 

@@ -1,9 +1,10 @@
 /**
  * @file HomePage.tsx
  * @description Main landing page component for the Co-Director Platform application.
- * Displays welcome message and navigation cards for primary actions.
+ * Displays welcome message, feature cards, getting started guide, and testimonials.
+ * Includes responsive UI elements and interactive content sections.
  * @created 2025-05-22 19:52 ET
- * @lastUpdated 2025-05-22 19:52 ET
+ * @lastUpdated 2025-05-22 20:40 ET
  * @module pages/HomePage
  */
 
