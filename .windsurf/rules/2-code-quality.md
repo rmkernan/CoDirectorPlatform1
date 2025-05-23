@@ -28,3 +28,8 @@ trigger: always_on
      - Verify the implementation matches the latest Context7 MCP documentation
      - Document any version-specific considerations
      - Include relevant MCP references in JSDoc comments
+
+5. **Commit Message Conventions**
+   - Follow the Conventional Commits specification (e.g., `feat: ...`, `fix: ...`, `docs: ...`, `style: ...`, `refactor: ...`, `test: ...`, `chore: ...`).
+   - The commit message subject line should be concise (<= 50 chars if possible).
+   - The commit message body should explain the 'what' and 'why' of the changes, not just the 'how'. Provide context for the changes.
