@@ -64,8 +64,8 @@ To continue development, always:
 | 0.14 | Configure Zustand store | 🔄 In Progress | 4.1-4.2 | 0.1-0.10 | Next priority for Encoding Phase |
 | 0.15 | Set up mock API client | 🔄 In Progress | 5.1, 5.3 | 0.1-0.14 | Priority for Encoding Phase |
 | 0.16 | Create basic error handler | ✅ Completed | 5.2 | 0.1-0.15 | Enhanced ErrorBoundary component created with proper UI |
-| 0.17 | Set up logging utilities | ⏱️ Pending | 4.2.7, 5.4 | 0.1-0.16 | |
-| 0.18 | Create utility functions | ⏱️ Pending | 2.4, 6.1 | 0.1-0.16 | |
+| 0.17 | Set up logging utilities | ✅ Completed | 4.2.7, 5.4 | 0.1-0.16 | Logger utility created in app/src/utils/logger.ts with tests. |
+| 0.18 | Create utility functions | 🔄 In Progress | 2.4, 6.1 | 0.1-0.16 | Initial utility (logger.ts) created. Further common utilities pending. |
 | 0.19 | Implement localStorage helpers | ⏱️ Pending | 4.4 | 0.1-0.18 | |
 | 0.20 | Set up dev environment toggle | ⏱️ Pending | 4.2.6 | 0.1-0.19 | |
 | 0.21 | Create common components | ✅ Completed | 3.5 | 0.1-0.20 | Layout, AppBar, Sidebar, and HomePage components created with proper documentation |
