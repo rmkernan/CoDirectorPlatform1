@@ -49,11 +49,18 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
         sx={{
           flexGrow: 1,
           height: '100vh',
+          width: { xs: '100%', sm: `calc(100% - 240px)` },
+          ml: { sm: '240px' },
           overflow: 'auto',
           backgroundColor: (theme) =>
             theme.palette.mode === 'light'
               ? theme.palette.grey[100]
               : theme.palette.grey[900],
+          transition: (theme) =>
+            theme.transitions.create(['margin', 'width'], {
+              easing: theme.transitions.easing.sharp,
+              duration: theme.transitions.duration.leavingScreen,
+            }),
         }}
       >
         <Toolbar /> {/* This Toolbar is for proper spacing below the AppBar */}
