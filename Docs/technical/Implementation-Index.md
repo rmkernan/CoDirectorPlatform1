@@ -2,7 +2,7 @@
  * @file Implementation-Index.md
  * @description Navigation index for the Implementation.md document and Implementation-Updates.md
  * @created 2025-05-23 09:44 ET
- * @lastUpdated 2025-05-23 10:12 ET
+ * @lastUpdated 2025-05-23 12:12 ET
  * @module Docs/technical
  -->
 
@@ -10,7 +10,7 @@
 
 This document serves as a navigation aid for the detailed Implementation.md and Implementation-Updates.md documents, helping you quickly locate specific tasks and implementation details. The Implementation-Updates.md file contains the most recent and accurate information about tasks that have been completed or are in progress.
 
-## Phase 0: Project Setup & Foundation (14/22 completed)
+## Phase 0: Project Setup & Foundation (16/22 completed)
 
 | Task ID | Description | Status | DevProgress Ref | Implementation Details | Technical Patterns Ref |
 |---------|-------------|--------|-----------------|------------------------|-----------------------|
@@ -26,9 +26,9 @@ This document serves as a navigation aid for the detailed Implementation.md and 
 | 0.10 | Create theme configuration | ✅ Completed | [DevProgress.md:53](../process/DevProgress.md) | [Implementation-Updates.md:61-83](./Implementation-Updates.md) | [TechnicalPatterns.md:250-390](./TechnicalPatterns.md) |
 | 0.11 | Set up routing | ✅ Completed | [DevProgress.md:54](../process/DevProgress.md) | [Implementation-Updates.md:85-112](./Implementation-Updates.md) | - |
 | 0.12 | Create base HTML template | ✅ Completed | [DevProgress.md:55](../process/DevProgress.md) | [Implementation.md:195-200](./Implementation.md) | - |
-| 0.13 | Create global types | ⏱️ Pending | [DevProgress.md:56](../process/DevProgress.md) | *Not started* | - |
-| 0.14 | Configure Zustand store | 🔄 In Progress | [DevProgress.md:57](../process/DevProgress.md) | [Implementation-Updates.md:160-173](./Implementation-Updates.md) | - |
-| 0.15 | Set up mock API client | 🔄 In Progress | [DevProgress.md:58](../process/DevProgress.md) | [Implementation-Updates.md:175-194](./Implementation-Updates.md) | - |
+| 0.13 | Create global types | ✅ Completed | [DevProgress.md:62](../process/DevProgress.md) | [Implementation-Updates.md:118-143](./Implementation-Updates.md) | - |
+| 0.14 | Configure Zustand store | ✅ Completed | [DevProgress.md:63](../process/DevProgress.md) | [Implementation-Updates.md:145-170](./Implementation-Updates.md) | - |
+| 0.15 | Set up mock API client | 🔄 In Progress | [DevProgress.md:64](../process/DevProgress.md) | [Implementation-Updates.md:182-200](./Implementation-Updates.md) | - |
 | 0.16 | Create basic error handler | ✅ Completed | [DevProgress.md:59](../process/DevProgress.md) | [Implementation-Updates.md:114-141](./Implementation-Updates.md) | - |
 | 0.17 | Set up logging utilities | ⏱️ Pending | [DevProgress.md:60](../process/DevProgress.md) | *Not started* | - |
 | 0.18 | Create utility functions | ⏱️ Pending | [DevProgress.md:61](../process/DevProgress.md) | *Not started* | - |
