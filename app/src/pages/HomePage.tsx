@@ -1,9 +1,19 @@
+/**
+ * @file HomePage.tsx
+ * @description Main landing page component for the Co-Director Platform application.
+ * Displays welcome message and navigation cards for primary actions.
+ * @created 2025-05-22 19:52 ET
+ * @lastUpdated 2025-05-22 19:52 ET
+ * @module pages/HomePage
+ */
+
 import React from 'react';
 import { Box, Typography, Paper, Grid } from '@mui/material';
 
 /**
- * Home page component that serves as the landing page
- * @component
+ * Home page component that serves as the landing page for the application.
+ * Displays a welcome message and navigation cards for primary actions.
+ * @returns {React.ReactElement} The rendered HomePage component
  */
 const HomePage: React.FC = () => {
   return (

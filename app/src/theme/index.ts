@@ -1,9 +1,19 @@
+/**
+ * @file index.ts
+ * @description Main theme configuration for the application using Material-UI.
+ * Defines color palette, typography, and component styling with custom overrides.
+ * @created 2025-05-22 19:56 ET
+ * @lastUpdated 2025-05-22 19:56 ET
+ * @module theme
+ */
+
 import { createTheme } from '@mui/material/styles';
 import { blue, grey } from '@mui/material/colors';
 
 /**
  * Theme configuration for the application
  * Follows Material Design guidelines with custom overrides
+ * @returns {Theme} The configured Material-UI theme object
  */
 export const theme = createTheme({
   palette: {

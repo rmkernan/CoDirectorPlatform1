@@ -1,7 +1,33 @@
 # Co-Director Platform: Development Checklist
 
 **Created:** 2025-05-22, 04:29 PM ET  
-**Last Updated:** 2025-05-22, 04:35 PM ET
+**Last Updated:** 2025-05-22, 07:30 PM ET  
+**Version:** 2.0
+
+## 🚨 MANDATORY PRE-EXECUTION CHECKS
+
+### 1. Model Verification (MUST COMPLETE FIRST)
+```
+[LLM]: Please confirm which model you're using for this task.
+Example: "I'm using [MODEL_NAME] for this task"
+```
+- [ ] **LLM MUST** explicitly ask for model confirmation if not provided
+- [ ] **USER MUST** respond with exact model name (e.g., "I'm using SWE-1 for this task")
+- [ ] **BOTH** must verify model capabilities match task requirements
+
+### 2. Development Environment Setup
+- [ ] Verify Node.js version: `node --version`
+- [ ] Install dependencies: `npm install`
+- [ ] Start development server: `npm run dev`
+- [ ] Open project in browser: http://localhost:5173
+
+### 3. Git Pre-Flight Checks
+- [ ] Check current branch: `git branch --show-current`
+- [ ] Pull latest changes: `git pull origin main`
+- [ ] Verify no uncommitted changes: `git status`
+- [ ] Check DevProgress.md for current task status
+
+## 📝 DEVELOPMENT WORKFLOW
 
 This checklist serves as a quick reference to ensure consistent development practices across the Co-Director Platform project.
 
@@ -33,34 +59,67 @@ This checklist serves as a quick reference to ensure consistent development prac
    - [ ] Document any important findings in code comments
    - [ ] Update relevant documentation if needed
 
-## Before Starting Each Development Session
+## 🔄 GIT WORKFLOW REQUIREMENTS
 
-### 1. Model Verification (CRITICAL)
-**LLM MUST ALWAYS ASK FIRST THING:**
+### 1. Branch Naming (CRITICAL)
+- [ ] **ALWAYS** use this exact format:
+  ```
+  feature/{task-id}-{kebab-case-description}-{model}
+  ```
+- [ ] **REQUIRED** components:
+  - `feature/` - Prefix for all feature branches
+  - `{task-id}` - Task number from DevProgress.md (e.g., 0-1, 1-2)
+  - `{kebab-case-description}` - Short description in kebab-case
+  - `{model}` - Model identifier in lowercase (e.g., swe-1, gpt-4)
+
+### 2. Valid Examples
 ```
-[LLM]: Please confirm which model you're using for this task.
-Example: "I'm using [MODEL_NAME] for this task"
+✅ feature/0-1-initialize-vite-swe-1
+✅ feature/1-2-add-auth-gpt-4
+✅ feature/2-3-update-docs-claude-3
 ```
 
-**User Responsibilities:**
-- [ ] Explicitly state the model being used at session start
-- [ ] Clearly announce any model changes mid-session
-- [ ] Verify the model's capabilities match the task requirements
-
-**LLM Responsibilities:**
-- [ ] ALWAYS ask for model confirmation if not explicitly stated
-- [ ] Record the model being used in session notes
-- [ ] Verify model capabilities match the task requirements
-- [ ] Confirm model understanding before proceeding
-
-### Example Model Declaration
+### 3. Invalid Examples (DO NOT USE)
 ```
-[LLM]: Please confirm which model you're using for this task.
-Example: "I'm using [MODEL_NAME] for this task"
+❌ docs-audit                 # Missing prefix, task ID, and model
+❌ feature/docs-audit         # Missing task ID and model
+❌ feature/0-1-docs-audit     # Missing model
+❌ feature/docs_audit-swe1    # Underscore not allowed, use kebab-case
+```
 
-USER: I'm using SWE-1 for this task
+### 4. Branch Creation Process
+1. **Verify Current Branch**
+   ```bash
+   git branch --show-current
+   ```
 
-[LLM]: Confirmed using SWE-1. I'll proceed with this model.
+2. **Create New Branch**
+   ```bash
+   # Format:
+   git checkout -b feature/{task-id}-{description}-{model}
+   
+   # Example:
+   git checkout -b feature/0-2-documentation-audit-swe-1
+   ```
+
+3. **Push to Remote**
+   ```bash
+   git push -u origin feature/0-2-documentation-audit-swe-1
+   ```
+
+### 5. Commit Message Format
+```
+{type}({scope}): {description} [{model}]
+
+- Use present tense ("add" not "added")
+- Keep first line under 72 characters
+- Include model identifier in square brackets
+- Reference issue/ticket numbers if applicable
+
+Examples:
+✅ feat(auth): add login form [swe-1]
+✅ fix(api): resolve 500 error on user create [gpt-4]
+✅ docs(readme): update setup instructions [claude-3]
 ```
 
 ### Git Workflow Requirements
@@ -89,18 +148,77 @@ USER: I'm using SWE-1 for this task
   git commit -m "feat(setup): initialize Vite project [SWE-1]"
   ```
 
-#### Branch Management
-- [ ] Verify current Git branch: `git branch --show-current`
-- [ ] If not on a feature branch, create one following the naming pattern above
-- [ ] Push branch to remote immediately after creation:
-      ```bash
-      git push -u origin <branch-name>
-      ```
-- [ ] When switching models, create a new branch with the new model identifier
-- [ ] Never commit model-specific changes to the main branch
-- [ ] Pull latest changes from main (if needed): `git pull origin main`
-- [ ] Review DevProgress.md for current task status
-- [ ] Check latest SessionHandoff.md entry for context
+## 🛠 DEVELOPMENT PRACTICES
+
+### 1. Code Organization
+- [ ] Follow folder structure from TechnicalPatterns.md Section 4
+- [ ] Place shared components in `src/components`
+- [ ] Feature-specific components in `src/features/[feature]/components`
+- [ ] Use PascalCase for component files (e.g., `UserProfile.tsx`)
+
+### 2. Code Quality
+- [ ] File length < 400 lines (BestPractices.md Section 2)
+- [ ] Function/component length < 40 lines
+- [ ] Add JSDoc comments for all exports
+- [ ] Document complex logic with inline comments
+- [ ] Run linter: `npm run lint`
+- [ ] Run tests: `npm test`
+
+### 3. Documentation Standards
+- [ ] Add file header to every source file:
+  ```typescript
+  /**
+   * @file [filename.ext]
+   * @description [Brief description]
+   * @created YYYY-MM-DD
+   * @lastUpdated YYYY-MM-DD
+   * @module [path/from/src]
+   */
+  ```
+- [ ] Document all props with PropTypes or TypeScript
+- [ ] Include examples for complex components
+- [ ] Update relevant documentation when making changes
+
+## ✅ PRE-COMMIT CHECKS
+
+### 1. Code Review
+- [ ] Verify no console.log statements in production code
+- [ ] Check for unused imports/variables
+- [ ] Ensure consistent code formatting
+- [ ] Verify all tests pass
+
+### 2. Documentation Review
+- [ ] All new components have proper JSDoc comments
+- [ ] All props are documented
+- [ ] Complex logic is explained
+- [ ] Examples are provided where helpful
+
+### 3. Git Status
+- [ ] `git status` shows expected changes
+- [ ] No sensitive data in commits
+- [ ] Commit message follows conventions
+- [ ] Branch name follows naming standard
+
+## 🚀 DEPLOYMENT CHECKLIST
+
+### 1. Pre-Deployment
+- [ ] Update version number in package.json
+- [ ] Update CHANGELOG.md
+- [ ] Run full test suite
+- [ ] Verify all documentation is up-to-date
+
+### 2. Deployment Steps
+1. Create release branch: `release/v1.0.0`
+2. Run build: `npm run build`
+3. Deploy to staging
+4. Verify functionality
+5. Deploy to production
+
+### 3. Post-Deployment
+- [ ] Verify production deployment
+- [ ] Monitor error logs
+- [ ] Update documentation if needed
+- [ ] Close related issues
 
 ## During Development
 

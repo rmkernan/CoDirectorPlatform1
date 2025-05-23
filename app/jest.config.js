@@ -1,4 +1,12 @@
-/** @type {import('ts-jest').JestConfigWithTsJest} */
+/**
+ * @file jest.config.js
+ * @description Jest configuration for testing the Co-Director Platform application.
+ * Configures the test environment, coverage thresholds, and file transformations.
+ * @created 2025-05-22 20:01 ET
+ * @lastUpdated 2025-05-22 20:01 ET
+ * @module testing
+ * @type {import('ts-jest').JestConfigWithTsJest}
+ */
 module.exports = {
   preset: 'ts-jest',
   testEnvironment: 'jsdom',

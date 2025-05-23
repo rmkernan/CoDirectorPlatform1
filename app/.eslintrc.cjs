@@ -1,47 +1,65 @@
+/**
+ * @file .eslintrc.cjs
+ * @description ESLint configuration for Co-Director Platform.
+ * Enforces code quality and documentation standards across the codebase.
+ * @created 2025-05-22 19:58 ET
+ * @lastUpdated 2025-05-22 19:58 ET
+ * @module config
+ */
+
 module.exports = {
   root: true,
-  env: { browser: true, es2020: true },
+  env: { browser: true, es2020: true, node: true },
   extends: [
     'eslint:recommended',
     'plugin:@typescript-eslint/recommended',
     'plugin:react-hooks/recommended',
     'plugin:react/recommended',
-    'plugin:react/jsx-runtime',
-    'plugin:import/recommended',
-    'plugin:import/typescript',
     'plugin:jsx-a11y/recommended',
-    'plugin:prettier/recommended',
+    'plugin:jsdoc/recommended',
   ],
   ignorePatterns: ['dist', '.eslintrc.cjs'],
   parser: '@typescript-eslint/parser',
-  plugins: ['react-refresh', 'import', 'jsx-a11y', 'testing-library'],
+  plugins: [
+    'react', 
+    '@typescript-eslint',
+    'react-hooks',
+    'jsx-a11y',
+    'jsdoc'
+  ],
   rules: {
-    'react-refresh/only-export-components': [
-      'warn',
-      { allowConstantExport: true },
-    ],
+    // React rules
     'react/prop-types': 'off',
     'react/react-in-jsx-scope': 'off',
-    'import/order': [
-      'error',
+    
+    // Documentation rules
+    'jsdoc/require-jsdoc': [
+      'warn',
       {
-        groups: [
-          'builtin',
-          'external',
-          'internal',
-          'parent',
-          'sibling',
-          'index',
-          'object',
-          'type',
+        require: {
+          FunctionDeclaration: true,
+          MethodDefinition: true,
+          ClassDeclaration: true,
+          ArrowFunctionExpression: true,
+          FunctionExpression: true,
+        },
+        contexts: [
+          'TSInterfaceDeclaration',
+          'TSTypeAliasDeclaration',
+          'TSEnumDeclaration',
         ],
-        'newlines-between': 'always',
-        alphabetize: { order: 'asc', caseInsensitive: true },
       },
     ],
-    'import/first': 'error',
-    'import/newline-after-import': 'error',
-    'import/no-duplicates': 'error',
+    'jsdoc/require-description': 'warn',
+    'jsdoc/require-param': 'warn',
+    'jsdoc/require-param-description': 'warn',
+    'jsdoc/require-param-name': 'warn',
+    'jsdoc/require-param-type': 'warn',
+    'jsdoc/require-returns': 'warn',
+    'jsdoc/require-returns-check': 'warn',
+    'jsdoc/require-returns-description': 'warn',
+    'jsdoc/require-returns-type': 'warn',
+    'jsdoc/require-file-overview': 'warn',
   },
   settings: {
     react: {

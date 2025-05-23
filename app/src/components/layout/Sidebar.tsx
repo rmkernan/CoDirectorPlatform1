@@ -1,3 +1,12 @@
+/**
+ * @file Sidebar.tsx
+ * @description Navigation sidebar component that provides application navigation.
+ * Includes responsive design for both mobile and desktop viewing modes.
+ * @created 2025-05-22 19:52 ET
+ * @lastUpdated 2025-05-22 19:52 ET
+ * @module components/layout/Sidebar
+ */
+
 import React from 'react';
 import { Drawer, List, ListItemButton, ListItemIcon, ListItemText, Toolbar, useMediaQuery } from '@mui/material';
 import { useTheme } from '@mui/material/styles';
@@ -10,12 +19,22 @@ import {
 } from '@mui/icons-material';
 import { ReactNode } from 'react';
 
+/**
+ * Defines the structure of a sidebar navigation item
+ * @interface SidebarItem
+ */
 interface SidebarItem {
+  /** Display text for the navigation item */
   text: string;
+  /** Icon component to display with the navigation item */
   icon: ReactNode;
+  /** Navigation path/route for the item */
   path: string;
 }
 
+/**
+ * Available navigation items for the sidebar
+ */
 const sidebarItems: SidebarItem[] = [
   { text: 'Home', icon: <HomeIcon />, path: '/' },
   { text: 'Chat', icon: <ChatIcon />, path: '/chat' },
@@ -23,16 +42,24 @@ const sidebarItems: SidebarItem[] = [
   { text: 'Settings', icon: <SettingsIcon />, path: '/settings' },
 ];
 
+/**
+ * Props for the Sidebar component
+ * @interface SidebarProps
+ */
 interface SidebarProps {
+  /** Controls whether the mobile drawer is open */
   mobileOpen: boolean;
+  /** Handler function for closing the mobile drawer */
   onClose: () => void;
 }
 
 /**
- * Sidebar navigation component
- * @component
- * @param {boolean} mobileOpen - Controls the mobile drawer state
- * @param {Function} onClose - Handler for closing the mobile drawer
+ * Sidebar navigation component that provides application navigation
+ * with different display modes for mobile and desktop
+ * @param {object} props - Component props
+ * @param {boolean} props.mobileOpen - Controls the mobile drawer state
+ * @param {Function} props.onClose - Handler for closing the mobile drawer
+ * @returns {React.ReactElement} The rendered Sidebar component
  */
 export const Sidebar: React.FC<SidebarProps> = ({ mobileOpen, onClose }) => {
   const theme = useTheme();

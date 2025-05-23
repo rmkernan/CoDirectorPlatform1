@@ -1,20 +1,40 @@
+/**
+ * @file Layout.tsx
+ * @description Main layout component that structures the application UI.
+ * Includes responsive AppBar, Sidebar and main content area with proper spacing.
+ * @created 2025-05-22 19:52 ET
+ * @lastUpdated 2025-05-22 19:52 ET
+ * @module components/layout/Layout
+ */
+
 import React, { ReactNode, useState } from 'react';
 import { Box, Container, CssBaseline, Toolbar } from '@mui/material';
 import { AppBar } from './AppBar';
 import { Sidebar } from './Sidebar';
 
+/**
+ * Props for the Layout component
+ * @interface LayoutProps
+ */
 interface LayoutProps {
+  /** Child components to be rendered in the main content area */
   children: ReactNode;
 }
 
 /**
  * Main layout component that provides the application structure
- * @component
- * @param {ReactNode} children - The child components to render within the layout
+ * including responsive navigation, sidebar and content area
+ * @param {object} props - Component props
+ * @param {ReactNode} props.children - The child components to render within the layout
+ * @returns {React.ReactElement} The rendered Layout component
  */
 const Layout: React.FC<LayoutProps> = ({ children }) => {
   const [mobileOpen, setMobileOpen] = useState(false);
 
+  /**
+   * Toggles the mobile drawer open/closed state
+   * @returns {void}
+   */
   const handleDrawerToggle = () => {
     setMobileOpen(!mobileOpen);
   };

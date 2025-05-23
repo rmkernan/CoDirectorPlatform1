@@ -2,8 +2,8 @@
  * @file ErrorBoundary.tsx
  * @description A reusable error boundary component that catches JavaScript errors in its child component tree,
  * logs those errors, and displays a fallback UI instead of the component tree that crashed.
- * @created 2025-05-22
- * @lastUpdated 2025-05-22
+ * @created 2025-05-22 19:52 ET
+ * @lastUpdated 2025-05-22 19:52 ET
  * @module components/common/ErrorBoundary
  */
 
@@ -37,7 +37,7 @@ interface ErrorBoundaryState {
 /**
  * A reusable error boundary component that catches JavaScript errors in its child component tree.
  * @class ErrorBoundary
- * @extends {Component<ErrorBoundaryProps, ErrorBoundaryState>}
+ * @augments {Component<ErrorBoundaryProps, ErrorBoundaryState>}
  */
 class ErrorBoundary extends Component<ErrorBoundaryProps, ErrorBoundaryState> {
   /**

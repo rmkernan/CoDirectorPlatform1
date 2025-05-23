@@ -1,8 +1,11 @@
 /**
  * @file App.tsx
- * @description Main application component that sets up the React application with theme, routing, and error boundaries.
- * @created 2025-05-22
- * @lastUpdated 2025-05-22
+ * @description Root component of the application that sets up the React application with theme,
+ * routing, and error boundaries. This is the main entry point that wraps the entire application
+ * with necessary providers and global error handling.
+ * 
+ * @created 2025-05-22 19:52 ET
+ * @lastUpdated 2025-05-22 19:52 ET
  * @module App
  */
 
@@ -26,8 +29,13 @@ const ErrorBoundary = lazy(() => import('./components/common/ErrorBoundary'));
 const Layout = lazy(() => import('./components/layout/Layout'));
 const HomePage = lazy(() => import('./pages/HomePage'));
 
-// Loading component for Suspense fallback
-const LoadingSpinner: FC = () => (
+/**
+ * A full-page loading spinner used as a fallback for Suspense components.
+ * Provides visual feedback while child components are being loaded.
+ *
+ * @returns {ReactElement} A centered circular progress indicator
+ */
+const LoadingSpinner: FC = (): ReactElement => (
   <Box 
     display="flex" 
     justifyContent="center" 
@@ -40,7 +48,7 @@ const LoadingSpinner: FC = () => (
 
 /**
  * Fallback UI component that renders when an error is caught by the ErrorBoundary
- * @param {Object} props - Component props
+ * @param {object} props - Component props
  * @param {Error} props.error - The error object that was caught
  * @returns {ReactElement} The error fallback UI
  */

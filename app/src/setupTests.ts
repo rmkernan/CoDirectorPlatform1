@@ -1,7 +1,19 @@
+/**
+ * @file setupTests.ts
+ * @description Test setup configuration for Jest and React Testing Library.
+ * Provides global mocks and configurations needed for component testing.
+ * @created 2025-05-22 19:56 ET
+ * @lastUpdated 2025-05-22 19:56 ET
+ * @module testing
+ */
+
 import '@testing-library/jest-dom';
 import { configure } from '@testing-library/react';
 
-// Mock window.matchMedia
+/**
+ * Mock implementation for window.matchMedia
+ * Required for components that use media queries
+ */
 Object.defineProperty(window, 'matchMedia', {
   writable: true,
   value: jest.fn().mockImplementation((query) => ({
@@ -16,7 +28,11 @@ Object.defineProperty(window, 'matchMedia', {
   })),
 });
 
-// Configure test attributes for testing-library
+/**
+ * Mock implementation for document.createRange
+ * Required for components that use DOM Range objects
+ * @returns {Range} A mocked Range object with test implementations
+ */
 document.createRange = () => {
   const range = new Range();
   range.getBoundingClientRect = jest.fn();
@@ -28,5 +44,8 @@ document.createRange = () => {
   return range;
 };
 
-// Configure test-id attribute
+/**
+ * Configure React Testing Library
+ * Sets the attribute used for querying elements in tests
+ */
 configure({ testIdAttribute: 'data-testid' });

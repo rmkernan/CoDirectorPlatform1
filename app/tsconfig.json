@@ -1,3 +1,12 @@
+/**
+ * @file tsconfig.json
+ * @description Main TypeScript configuration for the Co-Director Platform application.
+ * Configures TypeScript compiler options for the React application code.
+ * @created 2025-05-22 20:03 ET
+ * @lastUpdated 2025-05-22 20:03 ET
+ * @module config
+ */
+
 {
   "compilerOptions": {
     "target": "ES2020",

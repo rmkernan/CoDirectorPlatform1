@@ -1,3 +1,12 @@
+/**
+ * @file tsconfig.node.json
+ * @description TypeScript configuration for Node.js environment used by Vite.
+ * Configures TypeScript compiler options for build tools and configuration files.
+ * @created 2025-05-22 20:03 ET
+ * @lastUpdated 2025-05-22 20:03 ET
+ * @module config
+ */
+
 {
   "compilerOptions": {
     "composite": true,

@@ -1,6 +1,18 @@
+/**
+ * @file theme.ts
+ * @description Application theme configuration using Material-UI's createTheme.
+ * Defines color palette, typography, and other theme settings for the application.
+ * @created 2025-05-22 19:56 ET
+ * @lastUpdated 2025-05-22 19:56 ET
+ * @module theme
+ */
+
 import { createTheme } from '@mui/material/styles';
 
-// Create a theme instance
+/**
+ * Creates the application's Material-UI theme instance
+ * Configures colors, typography, spacing, and other design elements
+ */
 const theme = createTheme({
   palette: {
     primary: {
