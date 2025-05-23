@@ -21,8 +21,10 @@
 |-------------|---------|-------------------|----------|
 | `develop` | Integration branch | `develop` | `develop` |
 | `c*-feature/*` | New features | `c{conversation#}-feature/{task#}-{description}-{model}` | `c5-feature/0.14-zustand-store-swe-1` |
-| `c*-bugfix/*` | Bug fixes | `c{conversation#}-bugfix/{description}-{model}` | `c5-bugfix/routing-errors-swe-1` |
-| `c*-docs/*` | Documentation | `c{conversation#}-docs/{description}-{model}` | `c5-docs/update-readme-swe-1` |
+| `c*-fix/*` | Fix issues | `c{conversation#}-fix/{issue-id}-{description}[-{model}]` | `c5-fix/23-message-display-s37` |
+| `c*-docs/*` | Documentation | `c{conversation#}-docs/{description}[-{model}]` | `c5-docs/update-readme-s37` |
+| `c*-refactor/*` | Code improvements | `c{conversation#}-refactor/{task-id}-{description}[-{model}]` | `c3-refactor/chat-state-swe1` |
+| `c*-release/*` | Release preparation | `c{conversation#}-release/v{version}[-{model}]` | `c6-release/v1.0.0-swe1` |
 
 ### Key Points
 
@@ -75,14 +77,13 @@ git checkout -b c5-feature/0.14-zustand-store-swe-1
 
 We use a feature-branch workflow with an integration branch and semantic naming that includes conversation number and model information:
 
-| Branch Type | Purpose | Naming Convention | Example |
-|-------------|---------|-------------------|----------|
-| `develop` | Integration branch | `develop` | `develop` |
-| `c*-feature/*` | New functionality | `c{conversation#}-feature/{task#}-{description}-{model}` | `c4-feature/0.11-routing-implementation-swe-1` |
-| `fix/*` | Fix issues | `fix/<issue-id>-<description>[-<model>]` | `fix/23-message-display-s37` |
-| `refactor/*` | Code improvements | `refactor/<task-id>-<description>[-<model>]` | `refactor/chat-state-swe1` |
-| `docs/*` | Documentation only | `docs/<description>[-<model>]` | `docs/update-readme-s37` |
-| `release/*` | Release preparation | `release/v<version>[-<model>]` | `release/v1.0.0-swe1` |
+| Branch Type        | Purpose | Naming Convention                                  | Example                                      |
+|--------------------|---------|----------------------------------------------------|----------------------------------------------|
+| Feature            | New functionality | `c{conversation#}-feature/{task#}-{description}-{model}`         | `c4-feature/0.11-routing-swe-1`              |
+| Bugfix             | Fix issues | `c{conversation#}-fix/{issue#}-{description}-{model}`            | `c5-fix/23-login-error-s37`                  |
+| Docs               | Documentation only | `c{conversation#}-docs/{description}-{model}`                    | `c2-docs/readme-update-gpt4`                 |
+| Refactor           | Code improvements | `c{conversation#}-refactor/{task#}-{description}-{model}`        | `c3-refactor/state-logic-swe-1`              |
+| Release            | Release preparation | `c{conversation#}-release/v{version}-{model}`                    | `c6-release/v1.0.0-swe-1`                    |
 
 ### Model Identifiers
 
@@ -92,7 +93,7 @@ When working with different AI models, append these identifiers to branch names:
 - `-s37` - Sonnet 3.7 model
 - `-gpt4` - GPT-4 model
 
-Example: `feature/0-1-initialize-vite-swe1`
+Example: `c1-feature/0-1-initialize-vite-swe1`
 
 ### When to Include Model Information
 

@@ -47,12 +47,9 @@ All timestamps in file headers must follow this format:
 /**
  * [ComponentName] component
  * 
- * @component
  * @description [Detailed description of the component's purpose and functionality]
  * 
- * @param {Object} props - Component props
- * @param {string} props.propName - Description of the prop
- * @param {() => void} [props.onClick] - Optional callback description
+ * @param {{ propName: string, onClick?: () => void }} props - Component props
  * 
  * @returns {JSX.Element} Rendered component
  * 

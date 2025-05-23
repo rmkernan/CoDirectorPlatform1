@@ -2,7 +2,7 @@
  * @file Implementation-Updates.md
  * @description Updated implementation details for completed tasks
  * @created 2025-05-23 09:45 ET
- * @lastUpdated 2025-05-23 10:07 ET
+ * @lastUpdated 2025-05-23 13:19 ET
  * @module Docs/technical
  -->
 
@@ -115,93 +115,93 @@ This document contains the updated implementation details for tasks that have be
   * Creation and update timestamps
   * References to React Router documentation
 
-### Task 0.16: Create basic error handler (✅ Completed)
+### Task 0.13: Create global types (✅ Completed)
 
-* Implemented a robust `ErrorBoundary` component in `src/components/common/ErrorBoundary.tsx`:
-  * Created a class component extending React's Component class to catch JavaScript errors
-  * Implemented proper error state management with TypeScript interfaces
-  * Added comprehensive error UI with Material UI Alert component
-  * Included support for custom fallback UI through props
-  * Added error logging to console (with preparation for future error tracking service integration)
+* Created essential global TypeScript type definition files in `app/src/types/`:
+  * **`api.ts`**: Defines types for API interactions, including:
+    * `ApiSuccessResponse<T>`: Standard structure for successful API responses.
+    * `ApiErrorResponse`: Standard structure for API error responses.
+    * `ApiResponse<T>`: Union type for success or error responses.
+    * `PaginationInfo`: Interface for pagination metadata.
+    * `PaginatedResponse<T>`: Type for responses that include paginated data.
+  * **`common.ts`**: Contains common utility types used across the application:
+    * `ID`: Represents unique identifiers (string or number).
+    * `Timestamp`: Represents date/time strings or Date objects.
+    * `LoadingState`: Enum-like type for tracking loading states ('idle', 'pending', 'succeeded', 'failed').
+    * `KeyValuePairs<T>`: Generic type for key-value pair objects.
+  * **`ui.ts`**: Defines types related to common UI elements and themes:
+    * `ComponentSize`: ('small', 'medium', 'large').
+    * `ThemeMode`: ('light', 'dark', 'system').
+    * `TextAlignment`: ('left', 'center', 'right', 'justify').
+    * `IconProps`: Basic interface for icon components (e.g., from Material UI or custom icons).
+  * **`user.ts`**: Defines types related to user data and authentication state:
+    * `UserProfile`: Interface for detailed user profile information (id, email, name, etc.).
+    * `AuthState`: Interface for the authentication state slice in Zustand, including `isAuthenticated`, `user`, `authToken`, `authStatus`, and `authError`.
+* All type files include comprehensive JSDoc comments for each type and property, and adhere to the project's documentation standards with correct file headers and timestamps.
 
-* Provided detailed TypeScript interfaces:
-  * `ErrorBoundaryProps` - Props definition with children and optional fallback UI
-  * `ErrorBoundaryState` - State shape with hasError flag, error object, and errorInfo
+### Task 0.14: Configure Zustand store (✅ Completed)
 
-* Implemented React error handling lifecycle methods:
-  * `getDerivedStateFromError` - Updates state when errors occur
-  * `componentDidCatch` - Logs errors and updates state with error information
+* **Implemented a comprehensive Zustand store setup:**
+  * Created `app/src/store/store.types.ts` defining:
+    * `AuthSliceState`, `AuthSliceActions`, and `AuthSlice` for authentication.
+    * `SettingsSliceState`, `SettingsSliceActions`, and `SettingsSlice` for application settings.
+    * `RootState` combining all slice types.
+  * Created `app/src/store/slices/authSlice.ts`:
+    * Implemented `createAuthSlice` with initial state for `isAuthenticated`, `user`, `authToken`, `authStatus`, `authError`.
+    * Added actions: `loginSuccess`, `logout`, `setAuthStatus`, `setAuthError`, `updateUserProfile`.
+  * Created `app/src/store/slices/settingsSlice.ts`:
+    * Implemented `createSettingsSlice` with initial state for `themeMode`, `mockApiEnabled`, `language`.
+    * Added actions: `setThemeMode`, `toggleMockApi`, `setLanguage`.
+  * Created `app/src/store/index.ts` as the main store entry point:
+    * Combined `authSlice` and `settingsSlice` into the `useStore` hook.
+    * Applied `immer` middleware for simplified immutable state updates.
+    * Applied `persist` middleware (`zustand/middleware/persist`) to save and rehydrate selected state to `localStorage`.
+      * Persisted state includes: `isAuthenticated`, `user`, `authToken` from auth slice, and `themeMode`, `mockApiEnabled`, `language` from settings slice, using the `partialize` option.
+  * All created files adhere to project documentation standards, including JSDoc comments and file headers with correct timestamps.
+  * The store is now ready for integration with components and API services.
 
-* Added comprehensive JSDoc documentation:
-  * File purpose and component description
-  * Detailed interface documentation
-  * Method documentation with parameters and return values
-  * Timestamps for creation and updates
+### Task 0.15: Set up mock API client (✅ Completed)
 
-### Task 0.21: Create common components (✅ Completed)
+**Status:** ✅ Completed
 
-* Implemented key layout and common components:
-  * `Layout.tsx` - Main application layout with responsive design
-  * `AppBar.tsx` - Top navigation bar with mobile responsive menu
-  * `Sidebar.tsx` - Navigation sidebar with collapsible design
-  * `HomePage.tsx` - Landing page with feature sections
+**Details:**
 
-* Added UI improvements as noted in the UI/UX documentation:
-  * Fixed layout issues where sidebar overlapped with main content
-  * Added smooth transitions for mobile menu
-  * Enhanced responsive behavior across different screen sizes
-  * Added proper scrolling functionality with fixed header and sidebar
+An initial mock API client has been created at `app/src/services/api/mockApiClient.ts`.
+This client simulates backend interactions for development and testing purposes, aligning with the global types defined in `app/src/types/`.
 
-* Ensured all components follow the project's documentation standards:
-  * Comprehensive JSDoc annotations and file headers
-  * Consistent documentation style across the codebase
-  * Proper TypeScript interfaces for component props
+**Key Features Implemented:**
 
-### Task 0.14: Configure Zustand store (🔄 In Progress)
+1.  **Simulated Network Delay:** A `delay` function is included to mimic real network latency for a more realistic development experience.
+2.  **Mock Authentication Functions:**
+    *   `login(credentials)`: Simulates user login. Returns a mock `UserProfile` and `authToken` on success, or an error for invalid credentials.
+    *   `logout()`: Simulates user logout, clearing the mock user and token.
+    *   `register(details)`: Simulates new user registration. Returns a new `UserProfile` or an error if the email already exists.
+3.  **Mock User Profile Function:**
+    *   `fetchUserProfile()`: Simulates fetching the currently authenticated user's profile. Returns the `UserProfile` if a mock user is "logged in", otherwise returns an unauthenticated error.
+4.  **Type Safety:** All mock functions return promises resolving to `ApiResponse<T>` (defined in `app/src/types/api.ts`), ensuring consistency with expected API response structures.
+5.  **Basic State:** The mock client maintains a simple in-memory state for the `mockUser` and `mockAuthToken`.
 
-* Created the basic structure for the Zustand store:
-  * Prepared `src/store/` directory structure
-  * Created subdirectories for store slices
+**Unit Testing Setup (Jest):**
 
-* Planned store implementation details:
-  * State management for user authentication
-  * State management for application settings
-  * State management for chat interactions
+*   **Successful Configuration:** The Jest testing framework (`app/jest.config.cjs`) has been successfully configured to work with TypeScript (`ts-jest`) and the project's structure.
+    *   Key fix involved correctly pathing `tsconfig.jest.json` within `ts-jest` options, ensuring it's relative to the project root.
+    *   `app/tsconfig.jest.json` was refined to extend the base `tsconfig.json` and include `src` for test file processing.
+*   **Tests Passing:** All unit tests for `mockApiClient.ts` (located in `app/src/services/api/mockApiClient.test.ts`) are now passing, covering login, logout, registration, and profile fetching scenarios.
+*   **Test Environment:** Configured to use `jsdom` and includes `setupFilesAfterEnv` for `src/setupTests.ts`.
 
-* Next steps to complete this task:
-  * Implement the base store configuration
-  * Create individual store slices for different features
-  * Add persistence layer for relevant state
+**Files Created/Modified:**
 
-### Task 0.15: Set up mock API client (🔄 In Progress)
+*   `app/src/services/api/mockApiClient.ts` (mock client implementation)
+*   `app/src/services/api/mockApiClient.test.ts` (unit tests)
+*   `app/jest.config.cjs` (main Jest configuration)
+*   `app/tsconfig.jest.json` (TypeScript configuration for Jest)
 
-* Created directory structure for API services:
-  ```
-  src/services/
-  ├── api/              # API client and endpoints
-  ├── mock/             # Mock API implementation
-  └── localStorage/     # Local storage service
-  ```
+**Next Steps (to be handled in subsequent tasks or as part of feature implementation):**
 
-* Planned implementation details:
-  * Create an API client with fetch or axios
-  * Implement endpoints for authentication and data access
-  * Add mock data for development and testing
+*   Integration of these mock functions into Zustand store actions (e.g., in `authSlice.ts`).
+*   Expanding the client with more mock endpoints as new features are developed.
 
-* Next steps to complete this task:
-  * Finish implementing the API client abstraction
-  * Create mock data fixtures
-  * Implement error handling and retry logic
-
-* Connect store to components:
-  * Update ThemeProvider to use the uiSlice for theme state
-  * Ensure proper selective subscription to store slices
-  * Implement selector patterns for optimized re-renders
-
-* Implement store persistence for key state:
-  * Configure localStorage persistence for theme preferences
-  * Add session state persistence for active sessions
-  * Implement selective persistence to avoid storing sensitive data
+This mock client, along with its successfully configured testing suite, provides a foundational layer for frontend development to proceed without a live backend, enabling UI and state logic to be built and tested independently.
 
 ### Task 0.16: Create basic error handler (✅ Completed)
 

@@ -1,5 +1,5 @@
 ---
-trigger: manual
+trigger: always_on
 ---
 
 1 Implement state management using Zustand with the slices pattern from TechnicalPatterns.md Section 6.2. Keep API calls in store actions, not components, and always include loading and error states.

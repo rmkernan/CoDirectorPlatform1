@@ -34,6 +34,8 @@ This document provides a quick reference for code organization, documentation, a
 
 ## Documentation Standards
 
+This section provides a quick reference for common documentation practices. For comprehensive JSDoc guidelines, examples, and ESLint enforcement details, please refer to `../process/DOCUMENTATION_STANDARDS.md`.
+
 - **File Headers**:
   ```typescript
   /**
@@ -88,6 +90,8 @@ This document provides a quick reference for code organization, documentation, a
 - **Size limits**:
   - File length < 400 lines
   - Function/component length < 40 lines
+
+- **TypeScript Interfaces**: Define interfaces at the top of the file before any code.
 
 - **Testing**:
   - Unit tests for all utility functions

@@ -1,9 +1,23 @@
 /**
- * @file jest.config.js
+ * @file jest.config.cjs
  * @description Jest configuration for testing the Co-Director Platform application.
  * Configures the test environment, coverage thresholds, and file transformations.
+ *
+ * Key Configuration Points for ts-jest:
+ * 1. `transform`: Specifies `ts-jest` for `.ts` and `.tsx` files.
+ * 2. `tsconfig` path within `ts-jest` options: This path (`app/tsconfig.jest.json`)
+ *    is resolved relative to the project root (where Jest is typically run from),
+ *    NOT relative to this Jest config file's location. This was a key finding
+ *    during troubleshooting.
+ * 3. `app/tsconfig.jest.json`: This file extends the main `app/tsconfig.json` and
+ *    critically includes `"src"` in its `"include"` array. This ensures that
+ *    test files (which might be excluded in the base `tsconfig.json`) are processed
+ *    by `ts-jest`.
+ * 4. `isolatedModules`: This option is handled by the `tsconfig.json` files.
+ *    It was removed from the `ts-jest` options here to avoid deprecation warnings.
+ *
  * @created 2025-05-22 20:01 ET
- * @lastUpdated 2025-05-22 20:01 ET
+ * @lastUpdated 2025-05-23 13:19 ET
  * @module testing
  * @type {import('ts-jest').JestConfigWithTsJest}
  */
@@ -19,12 +33,11 @@ module.exports = {
     '^.+\\.tsx?$': [
       'ts-jest',
       {
-        tsconfig: 'tsconfig.json',
-        isolatedModules: true,
+        tsconfig: 'app/tsconfig.jest.json',
       },
     ],
   },
-  testMatch: ['**/__tests__/**/*.test.[jt]s?(x)'],
+  testMatch: ['**/__tests__/**/*.test.[jt]s?(x)', '**/?(*.)+(spec|test).[jt]s?(x)'],
   moduleFileExtensions: ['ts', 'tsx', 'js', 'jsx', 'json', 'node'],
   collectCoverageFrom: [
     'src/**/*.{ts,tsx}',
@@ -44,4 +57,5 @@ module.exports = {
       statements: 80,
     },
   },
+  coverageDirectory: 'coverage',
 };
