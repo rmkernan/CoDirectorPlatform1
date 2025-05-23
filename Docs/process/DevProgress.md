@@ -64,8 +64,8 @@ To continue development, always:
 | 0.14 | Configure Zustand store | ✅ Completed | 4.1-4.2 | 0.1-0.10 | Base store, auth & settings slices, persist & immer middleware implemented. |
 | 0.15 | Set up mock API client | ✅ Completed | 5.1, 5.3 | 0.1-0.14 | Initial mock client created (`mockApiClient.ts`). Jest testing framework successfully configured and unit tests for the mock client are passing. |
 | 0.16 | Create basic error handler | ✅ Completed | 5.2 | 0.1-0.15 | Enhanced ErrorBoundary component created with proper UI |
-| 0.17 | Set up logging utilities | ⏱️ Pending | 4.2.7, 5.4 | 0.1-0.16 | |
-| 0.18 | Create utility functions | ⏱️ Pending | 2.4, 6.1 | 0.1-0.16 | |
+| 0.17 | Set up logging utilities | ✅ Completed | 4.2.7, 5.4 | 0.1-0.16 | Logger utility created in app/src/utils/logger.ts with tests. |
+| 0.18 | Create utility functions | 🔄 In Progress | 2.4, 6.1 | 0.1-0.16 | Initial utility (logger.ts) created. Further common utilities pending. |
 | 0.19 | Implement localStorage helpers | ⏱️ Pending | 4.4 | 0.1-0.18 | |
 | 0.20 | Set up dev environment toggle | ⏱️ Pending | 4.2.6 | 0.1-0.19 | |
 | 0.21 | Create common components | ✅ Completed | 3.5 | 0.1-0.20 | Layout, AppBar, Sidebar, and HomePage components created with proper documentation |

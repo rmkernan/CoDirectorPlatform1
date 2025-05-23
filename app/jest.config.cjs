@@ -17,10 +17,11 @@
  *    It was removed from the `ts-jest` options here to avoid deprecation warnings.
  *
  * @created 2025-05-22 20:01 ET
- * @lastUpdated 2025-05-23 13:19 ET
+ * @lastUpdated 2025-05-23 14:27 ET
  * @module testing
  * @type {import('ts-jest').JestConfigWithTsJest}
  */
+
 module.exports = {
   preset: 'ts-jest',
   testEnvironment: 'jsdom',
@@ -34,6 +35,25 @@ module.exports = {
       'ts-jest',
       {
         tsconfig: 'app/tsconfig.jest.json',
+        diagnostics: {
+          ignoreCodes: [1343],
+        },
+        astTransformers: {
+          before: [
+            {
+              path: 'ts-jest-mock-import-meta',
+              options: {
+                metaObjectReplacement: {
+                  env: {
+                    DEV: true,
+                    PROD: false,
+                    SSR: false
+                  }
+                }
+              }
+            }
+          ]
+        }
       },
     ],
   },
