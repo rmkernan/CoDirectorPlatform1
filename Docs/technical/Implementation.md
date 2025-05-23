@@ -1,6 +1,6 @@
 # Co-Director Front-End Rebuild: Implementation Plan
-**Version:** 0.1
-**Last Updated:** May 19, 2025, 8:15 PM EDT
+**Version:** 0.2
+**Last Updated:** May 23, 2025, 10:15 AM ET
 
 ## 1. Introduction
 
@@ -21,14 +21,17 @@ The MVP development will be broken down into the following logical phases. Each 
 
 ### Phase 0: Project Setup & Foundation
 * **Objective:** Establish the foundational structure and configuration for the project, ensuring all development tools, libraries, code quality tools (linters, formatters), pre-commit hooks, basic CI, and basic architectural patterns are in place. 
-* **Key Deliverables:** * Initialized Vite + React + TypeScript project.
+* **Key Deliverables:** 
+    * Initialized Vite + React + TypeScript project.
     * Core dependencies (Material UI, Zustand, testing libraries) installed and configured.
     * ESLint, Prettier, Husky, and lint-staged configured.
     * Basic CI workflow file created (e.g., for GitHub Actions).
-    * Project folder structure created according to `ADD.md`.
-    * Basic `App.tsx` and `AppLayout.tsx` (skeleton) components.
-    * Initial MUI theme setup.
-    * Initial testing configurations (Jest, RTL, Cypress).
+    * Feature-based project folder structure implemented.
+    * Basic `App.tsx` and layout components.
+    * Comprehensive MUI theme configuration.
+    * Routing implementation with HashRouter.
+    * Error handling with ErrorBoundary component.
+    * Initial testing configurations (Jest, RTL).
     * Version control (Git) repository initialized with a `.gitignore` and basic `README.md`.
 * **Detailed Task Breakdown:**
     * Task 0.1: Initialize a new Vite project using the command `npm create vite@latest co-director-frontend -- --template react-ts`.
@@ -40,7 +43,11 @@ The MVP development will be broken down into the following logical phases. Each 
         * Create `jest.config.js` at the project root. Configure it for TypeScript, React, and to use `jest-environment-jsdom`. Include setup for `moduleNameMapper` for CSS/asset mocks and `setupFilesAfterEnv` for RTL setup.
         * Create a `setupTests.ts` file (e.g., in `src/`) to import `@testing-library/jest-dom`.
     * Task 0.7: Install Cypress for E2E testing: `npm install --save-dev cypress`.
-    * Task 0.8: Initialize Cypress configuration: Run `npx cypress open`. This will generate default configuration files and folders (e.g., `cypress.config.ts`, `cypress/` directory). Review and close Cypress.
+    * Task 0.8: Configure TypeScript:  
+        * Create a `tsconfig.json` file at the project root with appropriate settings for the project. Ensure it includes options like `strict: true`, `esModuleInterop: true`, and any other settings the team has standardized on. In a Vite project, many of these configurations will already be set up, but review and modify as needed. Add any path aliases that might be needed (e.g., `@/` for `src/`).
+        * Configure TypeScript to enforce type safety throughout the application.
+        * Set up proper module resolution for imports.
+        * Configure paths for easier imports across the project structure.
     * Task 0.9: Initialize a Git repository in the project root: Run `git init`.
     * Task 0.10: Install ESLint and Prettier along with necessary plugins and configurations:
         * `npm install --save-dev eslint prettier eslint-plugin-react eslint-plugin-react-hooks @typescript-eslint/parser @typescript-eslint/eslint-plugin eslint-config-prettier eslint-plugin-prettier eslint-plugin-jsx-a11y eslint-plugin-import`
@@ -159,31 +166,128 @@ The MVP development will be broken down into the following logical phases. Each 
               - name: Run E2E tests (Cypress)
                 run: npx cypress run --browser chrome # Chrome is available in the container
         ```
-    * Task 0.17: Create the initial folder structure within `src/` as defined in `ADD.md`:
-        * `src/assets/`
-        * `src/components/common/`
-        * `src/components/layout/`
-        * `src/components/features/setup/`
-        * `src/components/features/chat/`
-        * `src/components/features/history/`
-        * `src/hooks/`
-        * `src/services/`
-        * `src/store/`
-        * `src/store/slices/`
-        * `src/styles/`
-        * `src/types/`
-        * `src/utils/`
-    * Task 0.18: Create a basic `App.tsx` component in `src/`. For now, it can render `AppLayout`. Import `CssBaseline` from MUI and include it.
-    * Task 0.19: Create a skeleton `AppLayout.tsx` component in `src/components/layout/`. This component will eventually hold the main navigation (Tabs). For now, a simple placeholder div is sufficient.
-    * Task 0.20: Set up Material UI theme provider:
-        * Create `src/styles/theme.ts`. Define a basic custom MUI theme (e.g., primary/secondary colors, typography settings if desired, refer to `PRD.md` 6.1 for simplicity).
-            * *Styling Note:* This `theme.ts` is the primary place for global theme overrides.
-        * Wrap the `App` component in `src/main.tsx` with MUI's `ThemeProvider` and `CssBaseline` and provide the custom theme.
-    * Task 0.21: Create a basic `README.md` file at the project root with the project title ("Co-Director Front-End Rebuild") and brief setup/run instructions.
-    * Task 0.21a: Define Global Developer Features Flag:
-        * Create a global constant or utility (e.g., in `src/utils/featureFlags.ts` or directly derived from an environment variable like `import.meta.env.VITE_ENABLE_DEV_FEATURES`).
-        * This flag (e.g., `ENABLE_DEV_FEATURES`) will control the visibility of all developer-specific UI elements.
-        * Ensure it defaults to `false` if the environment variable is not explicitly set to true.
+    * Task 0.9: Create folder structure:
+        * Implement the feature-based project structure following TechnicalPatterns.md section 4 with modifications to better suit the application needs:
+        ```
+        src/
+        ├── assets/                  # Static assets (images, icons, fonts)
+        ├── components/              # Shared/common components
+        │   ├── auth/                # Authentication-related components
+        │   ├── common/              # Very generic components (Button, Card, etc.)
+        │   ├── layout/              # Layout components (AppLayout, TabPanel, etc.)
+        │   └── ui/                  # UI element components
+        ├── features/                # Feature-based modules
+        │   ├── auth/                # Authentication feature
+        │   │   ├── components/      # Auth-specific components
+        │   │   ├── hooks/           # Auth-specific hooks
+        │   │   ├── types/           # Auth-specific types
+        │   │   └── utils/           # Auth-specific utilities
+        │   ├── chat/                # Chat feature
+        │   │   ├── components/      # Chat-specific components
+        │   │   ├── hooks/           # Chat-specific hooks
+        │   │   ├── types/           # Chat-specific types
+        │   │   └── utils/           # Chat-specific utilities
+        │   └── settings/            # Settings feature
+        │       ├── components/      # Settings-specific components
+        │       ├── hooks/           # Settings-specific hooks
+        │       ├── types/           # Settings-specific types
+        │       └── utils/           # Settings-specific utilities
+        ├── hooks/                   # Shared hooks
+        ├── pages/                   # Page components that combine features
+        ├── routes/                  # Routing configuration
+        ├── services/                # API services
+        ├── store/                   # Zustand store (structure prepared)
+        ├── styles/                  # Global styles
+        │   └── theme/               # Theme-related styles
+        ├── theme/                   # MUI theme configuration
+        ├── types/                   # TypeScript type definitions
+        │   ├── api/                 # API-related types
+        │   ├── components/          # Component props and related types
+        │   └── store/               # Store state and action types
+        └── utils/                   # Utility functions
+            ├── common/              # Common utility functions
+            ├── formatters/          # Data formatting utilities
+            └── validators/          # Validation utilities
+        ```
+        * Establish naming conventions following TechnicalPatterns.md section 4.2:
+          * Files: PascalCase for components, camelCase for non-components
+          * Folders: camelCase for all folders
+          * Components: PascalCase with component type included (e.g., `MessageList.tsx`)
+          * Hooks: Prefixed with `use` (e.g., `useMessages.ts`)
+          * Context: Suffixed with `Context` (e.g., `ThemeContext.tsx`)
+        * Create necessary directories with placeholder files to maintain the structure
+        * Add proper documentation to each directory with README.md files explaining purpose and organization
+    * Task 0.11: Set up routing:
+        * Implement client-side routing using HashRouter for reliable navigation:
+          * Create `src/routes/index.tsx` for centralized route definitions
+          * Implement the router with createHashRouter from React Router v7
+          * Set up the following routes:
+            * `/` - Redirects to home page
+            * `/home` - Main home page
+            * `/login` - Login form
+            * `/register` - Registration form
+            * `/chat` - Chat interface (placeholder)
+            * `/history` - History view (placeholder)
+            * `/settings` - Settings page (placeholder)
+            * `*` - 404 page for handling invalid routes
+        * Create a `LayoutWithErrorBoundary` wrapper component to provide consistent layout and error handling across all routes
+        * Add placeholder components for future feature implementation
+        * Document the routing approach with comprehensive JSDoc comments, including:
+          * File purpose and description
+          * Creation and update timestamps
+          * References to React Router documentation
+    * Task 0.10: Create theme configuration:
+        * Create the theme configuration in the `src/theme/` directory:
+        ```
+        src/theme/
+        ├── index.ts     # Theme exports
+        └── theme.ts     # Main theme configuration
+        ```
+        * Implement the theme configuration in `theme.ts`:
+          * Define TypeScript interfaces for extending the Material UI theme with custom status colors
+          * Create a responsive theme with the following configurations:
+            * Color palette with primary (blue), secondary (grey), and status colors
+            * Consistent typography settings with standardized font sizes and weights
+            * Component overrides for buttons, app bar, and cards
+            * Proper spacing and shape configurations
+          * Use the `responsiveFontSizes` helper for better mobile typography
+        * Create a complementary theme styles directory at `src/styles/theme/` for additional style customizations
+        * Add comprehensive JSDoc documentation:
+          * File headers with creation and update timestamps
+          * Detailed documentation for interfaces and theme configuration
+    * Task 0.21: Create common components:
+        * Implement key layout and common components:
+          * `Layout.tsx` - Main application layout with responsive design
+          * `AppBar.tsx` - Top navigation bar with mobile responsive menu
+          * `Sidebar.tsx` - Navigation sidebar with collapsible design
+          * `HomePage.tsx` - Landing page with feature sections
+        * Add UI improvements:
+          * Fix layout issues where sidebar overlapped with main content
+          * Add smooth transitions for mobile menu
+          * Enhance responsive behavior across different screen sizes
+          * Add proper scrolling functionality with fixed header and sidebar
+        * Ensure all components follow the project's documentation standards:
+          * Comprehensive JSDoc annotations and file headers
+          * Consistent documentation style across the codebase
+          * Proper TypeScript interfaces for component props
+    * Task 0.16: Create basic error handler:
+        * Implement a robust `ErrorBoundary` component in `src/components/common/ErrorBoundary.tsx`:
+          * Create a class component extending React's Component class to catch JavaScript errors
+          * Implement proper error state management with TypeScript interfaces
+          * Add comprehensive error UI with Material UI Alert component
+          * Include support for custom fallback UI through props
+          * Add error logging to console (with preparation for future error tracking service integration)
+        * Provide detailed TypeScript interfaces:
+          * `ErrorBoundaryProps` - Props definition with children and optional fallback UI
+          * `ErrorBoundaryState` - State shape with hasError flag, error object, and errorInfo
+        * Implement React error handling lifecycle methods:
+          * `getDerivedStateFromError` - Updates state when errors occur
+          * `componentDidCatch` - Logs errors and updates state with error information
+        * Add comprehensive JSDoc documentation:
+          * File purpose and component description
+          * Detailed interface documentation
+          * Method documentation with parameters and return values
+          * Timestamps for creation and updates
     * Task 0.22: Make the initial Git commit: Add all project files (including linter configs, husky setup, CI workflow) and commit with a message like "Initial project setup with linting, formatting, CI, and foundation."
 
 

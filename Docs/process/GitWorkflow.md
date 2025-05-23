@@ -1,7 +1,42 @@
 # Co-Director Platform: Git Workflow Guide
 
 **Created:** 2025-05-22, 03:45 PM ET  
-**Last Updated:** 2025-05-22 22:54 ET
+**Last Updated:** 2025-05-23 10:35 ET
+
+## Quick Reference: Branching Strategy
+
+**IMPORTANT: This section contains the essential information about our Git workflow that you need to understand. The rest of this document contains details that you don't need to read for most tasks.**
+
+### Workflow Diagram
+```
+┌─────────┐     ┌─────────────────────┐     ┌─────────────────────┐
+│ develop │────▶│ c5-feature/X.XX-... │────▶│ Pull Request back   │
+└─────────┘     └─────────────────────┘     │ to develop          │
+                                            └─────────────────────┘
+```
+
+### Branch Types & Naming Conventions
+
+| Branch Type | Purpose | Naming Convention | Example |
+|-------------|---------|-------------------|----------|
+| `develop` | Integration branch | `develop` | `develop` |
+| `c*-feature/*` | New features | `c{conversation#}-feature/{task#}-{description}-{model}` | `c5-feature/0.14-zustand-store-swe-1` |
+| `c*-bugfix/*` | Bug fixes | `c{conversation#}-bugfix/{description}-{model}` | `c5-bugfix/routing-errors-swe-1` |
+| `c*-docs/*` | Documentation | `c{conversation#}-docs/{description}-{model}` | `c5-docs/update-readme-swe-1` |
+
+### Key Points
+
+1. **Conversation Numbers**: Each new AI conversation increments the number (C4, C5, etc.)
+2. **Always Start from Develop**: All new branches begin from the `develop` branch
+3. **Branch Creation Commands**:
+   ```bash
+   git checkout develop
+   git pull origin develop
+   git checkout -b c{conversation#}-feature/{task#}-{description}-{model}
+   git push -u origin c{conversation#}-feature/{task#}-{description}-{model}
+   ```
+4. **When Feature Complete**: Create a Pull Request back to `develop`
+5. **Use Tags for Milestones**: e.g., `git tag -a phase0-complete -m "Completed Phase 0 tasks"`
 
 ## Overview
 
@@ -44,7 +79,7 @@ We use a feature-branch workflow with an integration branch and semantic naming 
 |-------------|---------|-------------------|----------|
 | `develop` | Integration branch | `develop` | `develop` |
 | `c*-feature/*` | New functionality | `c{conversation#}-feature/{task#}-{description}-{model}` | `c4-feature/0.11-routing-implementation-swe-1` |
-| `bugfix/*` | Fix issues | `bugfix/<issue-id>-<description>[-<model>]` | `bugfix/23-message-display-s37` |
+| `fix/*` | Fix issues | `fix/<issue-id>-<description>[-<model>]` | `fix/23-message-display-s37` |
 | `refactor/*` | Code improvements | `refactor/<task-id>-<description>[-<model>]` | `refactor/chat-state-swe1` |
 | `docs/*` | Documentation only | `docs/<description>[-<model>]` | `docs/update-readme-s37` |
 | `release/*` | Release preparation | `release/v<version>[-<model>]` | `release/v1.0.0-swe1` |
@@ -56,7 +91,6 @@ When working with different AI models, append these identifiers to branch names:
 - `-swe1` - Windsurf SWE-1 model
 - `-s37` - Sonnet 3.7 model
 - `-gpt4` - GPT-4 model
-- `-claude` - Claude model
 
 Example: `feature/0-1-initialize-vite-swe1`
 
@@ -170,6 +204,7 @@ Our CI pipeline automatically runs on all pull requests and pushes to `develop`,
 4. **Reference Tasks/Issues**: Include task IDs in branch names and commit messages
 5. **Update Documentation**: Keep documentation in sync with code changes
 6. **Pull Regularly**: Frequently update your branch with changes from `develop`
+7. **Synchronize Documentation**: Follow the documentation synchronization workflow
 
 ## Including Git Context in Handoffs
 
@@ -224,6 +259,56 @@ We plan to implement Git hooks to:
 - Verify branch naming conventions
 - Validate commit message format
 - Prevent direct commits to develop or main
+
+## Documentation Synchronization Workflow
+
+Documentation changes require special handling to ensure all branches have the most current documentation.
+
+### Documentation Update Process
+
+1. **Create a dedicated documentation branch from main**:
+   ```bash
+   git checkout develop
+   git pull  # Ensure develop is up-to-date
+   git checkout -b c{conversation#}-docs/implementation-sync-{model}
+   # Example
+   git checkout -b c5-docs/implementation-sync-swe-1
+   ```
+
+2. **Make documentation changes and commit them**:
+   ```bash
+   git add Docs/
+   git commit -m "docs: Synchronize implementation documentation with codebase state"
+   ```
+
+3. **Merge documentation branch into develop**:
+   ```bash
+   git checkout develop
+   git merge c{conversation#}-docs/implementation-sync-{model}
+   ```
+
+4. **Merge develop into all active feature branches**:
+   For each active feature branch:
+   ```bash
+   git checkout {feature-branch}
+   git merge develop
+   ```
+
+### Documentation Synchronization Maintenance
+
+To ensure documentation stays synchronized across branches:
+
+1. **Regular merges from develop to feature branches**:
+   - Schedule weekly merges from develop to all active feature branches
+   - This ensures documentation changes flow to all active work
+
+2. **Documentation updates as part of Definition of Done**:
+   - Include "Update relevant documentation" in your Definition of Done
+   - Document changes in your PR description
+
+3. **Document verification in pull requests**:
+   - PR template includes a "Documentation Changes" section
+   - Reviewers should verify documentation is accurate and complete
 
 ## Questions or Issues?
 

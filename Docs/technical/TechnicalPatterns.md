@@ -430,42 +430,58 @@ const StyledCard = styled(Card)(({ theme }) => ({
 
 ## 4. Project Folder Structure
 
-Optimal folder structure for the Co-Director Platform:
+**Current folder structure for the Co-Director Platform:**
 
 ```
 src/
-├── assets/               # Static assets (images, icons, fonts)
-├── components/           # Shared/common components
-│   ├── common/           # Very generic components (Button, Card, etc.)
-│   ├── layout/           # Layout components (AppLayout, TabPanel, etc.)
-│   └── feedback/         # Feedback-related components
-├── features/             # Feature-based modules
-│   ├── setup/            # Setup tab feature
-│   │   ├── components/   # Setup-specific components
-│   │   ├── hooks/        # Setup-specific hooks
-│   │   └── utils/        # Setup-specific utilities
-│   ├── chat/             # Chat tab feature
-│   │   ├── components/   # Chat-specific components
-│   │   ├── hooks/        # Chat-specific hooks
-│   │   └── utils/        # Chat-specific utilities
-│   └── history/          # History tab feature
-│       ├── components/   # History-specific components
-│       ├── hooks/        # History-specific hooks
-│       └── utils/        # History-specific utilities
-├── hooks/                # Shared hooks
-├── services/             # API services
-│   ├── api/              # API client and endpoints
-│   ├── mock/             # Mock API implementation
-│   └── localStorage/     # Local storage service
-├── store/                # Zustand store
-│   ├── slices/           # Store slices as defined in TDD
-│   └── index.ts          # Main store configuration
-├── theme/                # MUI theme configuration
-├── types/                # TypeScript type definitions
-├── utils/                # Utility functions
-├── App.tsx               # Main App component with routing
-└── main.tsx              # Entry point
+├── assets/                  # Static assets (images, icons, fonts)
+├── components/              # Shared/common components
+│   ├── auth/                # Authentication-related components
+│   ├── common/              # Very generic components (Button, Card, etc.)
+│   ├── layout/              # Layout components (AppLayout, TabPanel, etc.)
+│   └── ui/                  # UI element components
+├── features/                # Feature-based modules
+│   ├── auth/                # Authentication feature
+│   │   ├── components/      # Auth-specific components
+│   │   ├── hooks/           # Auth-specific hooks
+│   │   ├── types/           # Auth-specific types
+│   │   └── utils/           # Auth-specific utilities
+│   ├── chat/                # Chat feature
+│   │   ├── components/      # Chat-specific components
+│   │   ├── hooks/           # Chat-specific hooks
+│   │   ├── types/           # Chat-specific types
+│   │   └── utils/           # Chat-specific utilities
+│   └── settings/            # Settings feature
+│       ├── components/      # Settings-specific components
+│       ├── hooks/           # Settings-specific hooks
+│       ├── types/           # Settings-specific types
+│       └── utils/           # Settings-specific utilities
+├── hooks/                   # Shared hooks
+├── pages/                   # Page components that combine features
+├── routes/                  # Routing configuration
+├── services/                # API services
+│   ├── api/                 # API client and endpoints
+│   ├── mock/                # Mock API implementation
+│   └── localStorage/        # Local storage service
+├── store/                   # Zustand store
+│   ├── slices/              # Store slices as defined in TDD
+│   └── index.ts             # Main store configuration
+├── styles/                  # Global styles
+│   └── theme/               # Theme-related styles
+├── theme/                   # MUI theme configuration
+├── types/                   # TypeScript type definitions
+│   ├── api/                 # API-related types
+│   ├── components/          # Component props and related types
+│   └── store/               # Store state and action types
+├── utils/                   # Utility functions
+│   ├── common/              # Common utility functions
+│   ├── formatters/          # Data formatting utilities
+│   └── validators/          # Validation utilities
+├── App.tsx                  # Main App component with routing
+└── main.tsx                 # Entry point
 ```
+
+**Last Updated:** 2025-05-23 10:03 ET
 
 ### 4.1 Key Principles
 
