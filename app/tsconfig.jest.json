@@ -1,0 +1,14 @@
+{
+  "extends": "./tsconfig.json",
+  "compilerOptions": {
+    // Jest-specific overrides can go here if needed in the future.
+    // "isolatedModules": true is inherited from the base tsconfig.json.
+  },
+  // By including "src", we ensure all files within the src directory,
+  // including .test.ts and .test.tsx files, are considered by ts-jest
+  // when this configuration is active. This effectively overrides the
+  // "exclude" pattern from the base tsconfig.json for Jest's context.
+  "include": [
+    "src"
+  ]
+}

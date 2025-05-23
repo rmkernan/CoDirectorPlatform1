@@ -2,7 +2,7 @@
  * @file Implementation-Updates.md
  * @description Updated implementation details for completed tasks
  * @created 2025-05-23 09:45 ET
- * @lastUpdated 2025-05-23 12:10 ET
+ * @lastUpdated 2025-05-23 13:19 ET
  * @module Docs/technical
  -->
 
@@ -160,25 +160,48 @@ This document contains the updated implementation details for tasks that have be
   * All created files adhere to project documentation standards, including JSDoc comments and file headers with correct timestamps.
   * The store is now ready for integration with components and API services.
 
-### Task 0.15: Set up mock API client (🔄 In Progress)
+### Task 0.15: Set up mock API client (✅ Completed)
 
-* Created directory structure for API services:
-  ```
-  src/services/
-  ├── api/              # API client and endpoints
-  ├── mock/             # Mock API implementation
-  └── localStorage/     # Local storage service
-  ```
+**Status:** ✅ Completed
 
-* Planned implementation details:
-  * Create an API client with fetch or axios
-  * Implement endpoints for authentication and data access
-  * Add mock data for development and testing
+**Details:**
 
-* Next steps to complete this task:
-  * Finish implementing the API client abstraction
-  * Create mock data fixtures
-  * Implement error handling and retry logic
+An initial mock API client has been created at `app/src/services/api/mockApiClient.ts`.
+This client simulates backend interactions for development and testing purposes, aligning with the global types defined in `app/src/types/`.
+
+**Key Features Implemented:**
+
+1.  **Simulated Network Delay:** A `delay` function is included to mimic real network latency for a more realistic development experience.
+2.  **Mock Authentication Functions:**
+    *   `login(credentials)`: Simulates user login. Returns a mock `UserProfile` and `authToken` on success, or an error for invalid credentials.
+    *   `logout()`: Simulates user logout, clearing the mock user and token.
+    *   `register(details)`: Simulates new user registration. Returns a new `UserProfile` or an error if the email already exists.
+3.  **Mock User Profile Function:**
+    *   `fetchUserProfile()`: Simulates fetching the currently authenticated user's profile. Returns the `UserProfile` if a mock user is "logged in", otherwise returns an unauthenticated error.
+4.  **Type Safety:** All mock functions return promises resolving to `ApiResponse<T>` (defined in `app/src/types/api.ts`), ensuring consistency with expected API response structures.
+5.  **Basic State:** The mock client maintains a simple in-memory state for the `mockUser` and `mockAuthToken`.
+
+**Unit Testing Setup (Jest):**
+
+*   **Successful Configuration:** The Jest testing framework (`app/jest.config.cjs`) has been successfully configured to work with TypeScript (`ts-jest`) and the project's structure.
+    *   Key fix involved correctly pathing `tsconfig.jest.json` within `ts-jest` options, ensuring it's relative to the project root.
+    *   `app/tsconfig.jest.json` was refined to extend the base `tsconfig.json` and include `src` for test file processing.
+*   **Tests Passing:** All unit tests for `mockApiClient.ts` (located in `app/src/services/api/mockApiClient.test.ts`) are now passing, covering login, logout, registration, and profile fetching scenarios.
+*   **Test Environment:** Configured to use `jsdom` and includes `setupFilesAfterEnv` for `src/setupTests.ts`.
+
+**Files Created/Modified:**
+
+*   `app/src/services/api/mockApiClient.ts` (mock client implementation)
+*   `app/src/services/api/mockApiClient.test.ts` (unit tests)
+*   `app/jest.config.cjs` (main Jest configuration)
+*   `app/tsconfig.jest.json` (TypeScript configuration for Jest)
+
+**Next Steps (to be handled in subsequent tasks or as part of feature implementation):**
+
+*   Integration of these mock functions into Zustand store actions (e.g., in `authSlice.ts`).
+*   Expanding the client with more mock endpoints as new features are developed.
+
+This mock client, along with its successfully configured testing suite, provides a foundational layer for frontend development to proceed without a live backend, enabling UI and state logic to be built and tested independently.
 
 ### Task 0.16: Create basic error handler (✅ Completed)
 
