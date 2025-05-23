@@ -173,6 +173,13 @@ This document contains the updated implementation details for tasks that have be
   * Create individual store slices for different features
   * Add persistence layer for relevant state
 
+* Example slice structure for `userSlice.ts` and `chatSlice.ts` (as placeholders for actual feature slices)
+* State persistence strategy:
+  * Integrated `zustand/middleware/persist` for saving and rehydrating state from `localStorage`.
+  * Configured persistence for specific slices that require it (e.g., `userSettingsSlice`, `chatHistorySlice`).
+* Connect store to components:
+  * General pattern: Components will use selectors to subscribe to specific parts of the store state, ensuring re-renders only when relevant data changes. Example: `const MOCK_API_ENABLED = useStore(state => state.devSettings.MOCK_API_ENABLED);`
+
 ### Task 0.15: Set up mock API client (🔄 In Progress)
 
 * Created directory structure for API services:
@@ -192,16 +199,6 @@ This document contains the updated implementation details for tasks that have be
   * Finish implementing the API client abstraction
   * Create mock data fixtures
   * Implement error handling and retry logic
-
-* Connect store to components:
-  * Update ThemeProvider to use the uiSlice for theme state
-  * Ensure proper selective subscription to store slices
-  * Implement selector patterns for optimized re-renders
-
-* Implement store persistence for key state:
-  * Configure localStorage persistence for theme preferences
-  * Add session state persistence for active sessions
-  * Implement selective persistence to avoid storing sensitive data
 
 ### Task 0.16: Create basic error handler (✅ Completed)
 

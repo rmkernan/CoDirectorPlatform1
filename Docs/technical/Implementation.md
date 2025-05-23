@@ -26,7 +26,7 @@ The MVP development will be broken down into the following logical phases. Each 
     * Core dependencies (Material UI, Zustand, testing libraries) installed and configured.
     * ESLint, Prettier, Husky, and lint-staged configured.
     * Basic CI workflow file created (e.g., for GitHub Actions).
-    * Feature-based project folder structure implemented.
+    * Feature-based project folder structure implemented (see `TechnicalPatterns.md`, Section 4 for details).
     * Basic `App.tsx` and layout components.
     * Comprehensive MUI theme configuration.
     * Routing implementation with HashRouter.
@@ -39,257 +39,31 @@ The MVP development will be broken down into the following logical phases. Each 
     * Task 0.3: Install Material UI core and icon packages: `npm install @mui/material @emotion/react @emotion/styled @mui/icons-material`.
     * Task 0.4: Install Zustand for state management: `npm install zustand`.
     * Task 0.5: Install Jest, React Testing Library, and related dependencies for unit/component testing: `npm install --save-dev jest @types/jest ts-jest @testing-library/react @testing-library/jest-dom jest-environment-jsdom`.
-    * Task 0.6: Configure Jest:
-        * Create `jest.config.js` at the project root. Configure it for TypeScript, React, and to use `jest-environment-jsdom`. Include setup for `moduleNameMapper` for CSS/asset mocks and `setupFilesAfterEnv` for RTL setup.
-        * Create a `setupTests.ts` file (e.g., in `src/`) to import `@testing-library/jest-dom`.
-    * Task 0.7: Install Cypress for E2E testing: `npm install --save-dev cypress`.
-    * Task 0.8: Configure TypeScript:  
-        * Create a `tsconfig.json` file at the project root with appropriate settings for the project. Ensure it includes options like `strict: true`, `esModuleInterop: true`, and any other settings the team has standardized on. In a Vite project, many of these configurations will already be set up, but review and modify as needed. Add any path aliases that might be needed (e.g., `@/` for `src/`).
-        * Configure TypeScript to enforce type safety throughout the application.
-        * Set up proper module resolution for imports.
-        * Configure paths for easier imports across the project structure.
-    * Task 0.9: Initialize a Git repository in the project root: Run `git init`.
-    * Task 0.10: Install ESLint and Prettier along with necessary plugins and configurations:
-        * `npm install --save-dev eslint prettier eslint-plugin-react eslint-plugin-react-hooks @typescript-eslint/parser @typescript-eslint/eslint-plugin eslint-config-prettier eslint-plugin-prettier eslint-plugin-jsx-a11y eslint-plugin-import`
-        * (Consider `eslint-plugin-mui-unused-classes` if MUI styling conventions become a focus).
-    * Task 0.11: Configure ESLint:
-        * Create an `.eslintrc.js` (or `.json`, `.yaml`) file in the project root.
-        * Configure it with recommended settings for TypeScript, React (including hooks, JSX a11y), Prettier integration (to avoid conflicts), and import sorting/ordering. Example base:
-          ```javascript
-          // .eslintrc.js
-          module.exports = {
-            parser: '@typescript-eslint/parser',
-            extends: [
-              'eslint:recommended',
-              'plugin:react/recommended',
-              'plugin:react/jsx-runtime', // For new JSX transform
-              'plugin:react-hooks/recommended',
-              'plugin:@typescript-eslint/recommended',
-              'plugin:jsx-a11y/recommended',
-              'plugin:import/recommended',
-              'plugin:import/typescript',
-              'prettier', // Make sure this is last to override other formatting rules
-              'plugin:prettier/recommended',
-            ],
-            plugins: ['react', 'react-hooks', '@typescript-eslint', 'jsx-a11y', 'import', 'prettier'],
-            settings: {
-              react: { version: 'detect' },
-              'import/resolver': { typescript: {} },
-            },
-            env: { browser: true, jest: true, es2021: true, node: true },
-            rules: {
-              'prettier/prettier': 'error',
-              'react/react-in-jsx-scope': 'off', // Not needed with React 17+ new JSX transform
-              'import/order': [
-                'error',
-                {
-                  groups: ['builtin', 'external', 'internal', ['parent', 'sibling', 'index']],
-                  pathGroups: [{ pattern: 'react', group: 'external', position: 'before' }],
-                  pathGroupsExcludedImportTypes: ['react'],
-                  'newlines-between': 'always',
-                  alphabetize: { order: 'asc', caseInsensitive: true },
-                },
-              ],
-            },
-          };
-          ```
-    * Task 0.12: Configure Prettier:
-        * Create a `.prettierrc.js` (or `.json`) file in the project root with desired formatting options (e.g., `semi: true, singleQuote: true, jsxSingleQuote: false, trailingComma: 'es5', printWidth: 100`). Example:
-          ```javascript
-          // .prettierrc.js
-          module.exports = {
-            semi: true,
-            singleQuote: true,
-            jsxSingleQuote: false,
-            trailingComma: 'es5',
-            printWidth: 100,
-            tabWidth: 2,
-            useTabs: false,
-          };
-          ```
-        * Create a `.prettierignore` file listing files/directories Prettier should ignore (e.g., `node_modules/`, `dist/`, `coverage/`).
-    * Task 0.13: Add linting and formatting scripts to `package.json`:
-        * `"lint": "eslint \"src/**/*.{js,jsx,ts,tsx}\" --fix"`
-        * `"format": "prettier \"src/**/*.{js,jsx,ts,tsx,css,md}\" --write"`
-        * `"check-format": "prettier \"src/**/*.{js,jsx,ts,tsx,css,md}\" --check"`
-    * Task 0.14: Install and configure Husky and lint-staged for pre-commit hooks:
-        * `npm install --save-dev husky lint-staged`
-        * Initialize Husky: `npx husky init` (this creates `.husky/`)
-        * Create/edit `.husky/pre-commit` hook to run lint-staged:
-          ```sh
-          #!/usr/bin/env sh
-          . "$(dirname -- "$0")/_/husky.sh"
-
-          npx lint-staged
-          ```
-        * Configure `lint-staged` in `package.json` (or a separate config file like `.lintstagedrc.js`):
-          ```json
-          // package.json (partial)
-          "lint-staged": {
-            "src/**/*.{js,jsx,ts,tsx}": ["eslint --fix", "prettier --write"],
-            "src/**/*.{css,md}": ["prettier --write"]
-          }
-          ```
-    * Task 0.15: Create a `.gitignore` file at the project root (e.g., add `node_modules/`, `.env*`, `dist/`, `coverage/`, `.DS_Store`, `cypress/videos/`, `cypress/screenshots/`, `*.local`).
-    * Task 0.16: Create a basic Continuous Integration (CI) workflow file. For GitHub Actions, create `.github/workflows/ci.yml`:
-        ```yaml
-        # .github/workflows/ci.yml
-        name: Co-Director CI
-
-        on: [push, pull_request]
-
-        jobs:
-          build_and_test:
-            # Replace 'runs-on: ubuntu-latest' with a container that has Node and Chrome
-            # Example: Use a specific Node version and Cypress-provided browser image
-            # Check [https://github.com/cypress-io/cypress-docker-images/tree/master/browsers](https://github.com/cypress-io/cypress-docker-images/tree/master/browsers) for available tags
-            runs-on: ubuntu-latest
-            container: cypress/browsers:node18.17.0-chrome114 # Adjust Node/Chrome versions as needed
-
-            steps:
-              - uses: actions/checkout@v3
-              # Node is already in the container, but setup-node can manage versions/cache if needed for other steps
-              # If using a Node version from the container directly, this step might be simplified or adjusted
-              - name: Use Node.js (from container or setup)
-                uses: actions/setup-node@v3
-                with:
-                  node-version: '18.x' # Ensure this matches or is compatible with the container's Node
-                  cache: 'npm'
-              - name: Install dependencies
-                run: npm ci
-              - name: Run linters
-                run: npm run lint
-              - name: Run Prettier check
-                run: npm run check-format
-              - name: Run unit and component tests
-                run: npm test -- --coverage --watchAll=false
-              - name: Run E2E tests (Cypress)
-                run: npx cypress run --browser chrome # Chrome is available in the container
-        ```
-    * Task 0.9: Create folder structure:
-        * Implement the feature-based project structure following TechnicalPatterns.md section 4 with modifications to better suit the application needs:
-        ```
-        src/
-        ├── assets/                  # Static assets (images, icons, fonts)
-        ├── components/              # Shared/common components
-        │   ├── auth/                # Authentication-related components
-        │   ├── common/              # Very generic components (Button, Card, etc.)
-        │   ├── layout/              # Layout components (AppLayout, TabPanel, etc.)
-        │   └── ui/                  # UI element components
-        ├── features/                # Feature-based modules
-        │   ├── auth/                # Authentication feature
-        │   │   ├── components/      # Auth-specific components
-        │   │   ├── hooks/           # Auth-specific hooks
-        │   │   ├── types/           # Auth-specific types
-        │   │   └── utils/           # Auth-specific utilities
-        │   ├── chat/                # Chat feature
-        │   │   ├── components/      # Chat-specific components
-        │   │   ├── hooks/           # Chat-specific hooks
-        │   │   ├── types/           # Chat-specific types
-        │   │   └── utils/           # Chat-specific utilities
-        │   └── settings/            # Settings feature
-        │       ├── components/      # Settings-specific components
-        │       ├── hooks/           # Settings-specific hooks
-        │       ├── types/           # Settings-specific types
-        │       └── utils/           # Settings-specific utilities
-        ├── hooks/                   # Shared hooks
-        ├── pages/                   # Page components that combine features
-        ├── routes/                  # Routing configuration
-        ├── services/                # API services
-        ├── store/                   # Zustand store (structure prepared)
-        ├── styles/                  # Global styles
-        │   └── theme/               # Theme-related styles
-        ├── theme/                   # MUI theme configuration
-        ├── types/                   # TypeScript type definitions
-        │   ├── api/                 # API-related types
-        │   ├── components/          # Component props and related types
-        │   └── store/               # Store state and action types
-        └── utils/                   # Utility functions
-            ├── common/              # Common utility functions
-            ├── formatters/          # Data formatting utilities
-            └── validators/          # Validation utilities
-        ```
-        * Establish naming conventions following TechnicalPatterns.md section 4.2:
-          * Files: PascalCase for components, camelCase for non-components
-          * Folders: camelCase for all folders
-          * Components: PascalCase with component type included (e.g., `MessageList.tsx`)
-          * Hooks: Prefixed with `use` (e.g., `useMessages.ts`)
-          * Context: Suffixed with `Context` (e.g., `ThemeContext.tsx`)
-        * Create necessary directories with placeholder files to maintain the structure
-        * Add proper documentation to each directory with README.md files explaining purpose and organization
-    * Task 0.11: Set up routing:
-        * Implement client-side routing using HashRouter for reliable navigation:
-          * Create `src/routes/index.tsx` for centralized route definitions
-          * Implement the router with createHashRouter from React Router v7
-          * Set up the following routes:
-            * `/` - Redirects to home page
-            * `/home` - Main home page
-            * `/login` - Login form
-            * `/register` - Registration form
-            * `/chat` - Chat interface (placeholder)
-            * `/history` - History view (placeholder)
-            * `/settings` - Settings page (placeholder)
-            * `*` - 404 page for handling invalid routes
-        * Create a `LayoutWithErrorBoundary` wrapper component to provide consistent layout and error handling across all routes
-        * Add placeholder components for future feature implementation
-        * Document the routing approach with comprehensive JSDoc comments, including:
-          * File purpose and description
-          * Creation and update timestamps
-          * References to React Router documentation
-    * Task 0.10: Create theme configuration:
-        * Create the theme configuration in the `src/theme/` directory:
-        ```
-        src/theme/
-        ├── index.ts     # Theme exports
-        └── theme.ts     # Main theme configuration
-        ```
-        * Implement the theme configuration in `theme.ts`:
-          * Define TypeScript interfaces for extending the Material UI theme with custom status colors
-          * Create a responsive theme with the following configurations:
-            * Color palette with primary (blue), secondary (grey), and status colors
-            * Consistent typography settings with standardized font sizes and weights
-            * Component overrides for buttons, app bar, and cards
-            * Proper spacing and shape configurations
-          * Use the `responsiveFontSizes` helper for better mobile typography
-        * Create a complementary theme styles directory at `src/styles/theme/` for additional style customizations
-        * Add comprehensive JSDoc documentation:
-          * File headers with creation and update timestamps
-          * Detailed documentation for interfaces and theme configuration
-    * Task 0.21: Create common components:
-        * Implement key layout and common components:
-          * `Layout.tsx` - Main application layout with responsive design
-          * `AppBar.tsx` - Top navigation bar with mobile responsive menu
-          * `Sidebar.tsx` - Navigation sidebar with collapsible design
-          * `HomePage.tsx` - Landing page with feature sections
-        * Add UI improvements:
-          * Fix layout issues where sidebar overlapped with main content
-          * Add smooth transitions for mobile menu
-          * Enhance responsive behavior across different screen sizes
-          * Add proper scrolling functionality with fixed header and sidebar
-        * Ensure all components follow the project's documentation standards:
-          * Comprehensive JSDoc annotations and file headers
-          * Consistent documentation style across the codebase
-          * Proper TypeScript interfaces for component props
-    * Task 0.16: Create basic error handler:
-        * Implement a robust `ErrorBoundary` component in `src/components/common/ErrorBoundary.tsx`:
-          * Create a class component extending React's Component class to catch JavaScript errors
-          * Implement proper error state management with TypeScript interfaces
-          * Add comprehensive error UI with Material UI Alert component
-          * Include support for custom fallback UI through props
-          * Add error logging to console (with preparation for future error tracking service integration)
-        * Provide detailed TypeScript interfaces:
-          * `ErrorBoundaryProps` - Props definition with children and optional fallback UI
-          * `ErrorBoundaryState` - State shape with hasError flag, error object, and errorInfo
-        * Implement React error handling lifecycle methods:
-          * `getDerivedStateFromError` - Updates state when errors occur
-          * `componentDidCatch` - Logs errors and updates state with error information
-        * Add comprehensive JSDoc documentation:
-          * File purpose and component description
-          * Detailed interface documentation
-          * Method documentation with parameters and return values
-          * Timestamps for creation and updates
-    * Task 0.22: Make the initial Git commit: Add all project files (including linter configs, husky setup, CI workflow) and commit with a message like "Initial project setup with linting, formatting, CI, and foundation."
-
+    * Task 0.6: Configure ESLint and Prettier.
+        * Install ESLint, Prettier, and necessary plugins.
+        * Configure `.eslintrc.js` and `.prettierrc.js`.
+        * Add linting/formatting scripts to `package.json`.
+        * Configure Husky and lint-staged for pre-commit hooks.
+    * Task 0.7: Configure Jest.
+        * Create `jest.config.js` and `setupTests.ts`.
+    * Task 0.8: Configure TypeScript.
+        * Review and update `tsconfig.json` for strictness, paths, and project needs.
+    * Task 0.9: Create folder structure. Refer to `Implementation-Updates.md` for detailed steps and current status.
+    * Task 0.10: Create theme configuration. Refer to `Implementation-Updates.md` for detailed steps and current status.
+    * Task 0.11: Set up routing. Refer to `Implementation-Updates.md` for detailed steps and current status.
+    * Task 0.12: Create base HTML template (`index.html` and `src/App.tsx` initial setup).
+        * Ensure `index.html` correctly loads the React application.
+        * Basic `App.tsx` component structure.
+    * Task 0.13: Create global types (e.g., in `src/types/global.d.ts` or similar, for common application-wide types not specific to features/modules).
+    * Task 0.14: Configure Zustand store. Refer to `Implementation-Updates.md` for detailed steps and current status.
+    * Task 0.15: Set up mock API client. Refer to `Implementation-Updates.md` for detailed steps and current status.
+    * Task 0.16: Create basic error handler. Refer to `Implementation-Updates.md` for detailed steps and current status.
+    * Task 0.17: Set up logging utilities (e.g., a simple wrapper around `console.log` or a more advanced setup if needed later).
+    * Task 0.18: Create utility functions (common, reusable functions not tied to a specific feature, e.g., in `src/utils/common/`).
+    * Task 0.19: Implement localStorage helpers (for getting/setting/removing items from localStorage, perhaps with error handling or type safety).
+    * Task 0.20: Set up dev environment toggle (e.g., for enabling/disabling mock API, debug logs based on `import.meta.env.MODE`).
+    * Task 0.21: Create common components. Refer to `Implementation-Updates.md` for detailed steps and current status.
+    * Task 0.22: Create empty component files (placeholder files for components anticipated in Phase 1 and beyond, to establish structure).
 
 ### Phase 1: Core UI Layout & Setup Tab
 * **Objective:** Implement the main application layout, the complete functionality and UI for the Session Setup Tab, and establish centralized session lifecycle management, including an initial Human-in-the-Loop review and iteration cycle.
@@ -761,6 +535,4 @@ This section outlines how the testing strategies defined in `ADD.md` (Jest/RTL f
     * As tasks are completed or refined, update the 'Implementation Task ID(s)' and 'Status' columns.
     * Ensure each functional requirement from PRD Section 4 has at least one corresponding task ID.
     * Use the 'Notes' column for any clarifications, if multiple tasks contribute to a single requirement, or if a task covers multiple requirements.
-    ```
-
-
+    
