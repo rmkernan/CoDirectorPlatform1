@@ -1,7 +1,7 @@
 # Co-Director Platform: Git Workflow Guide
 
 **Created:** 2025-05-22, 03:45 PM ET  
-**Last Updated:** 2025-05-22, 04:28 PM ET
+**Last Updated:** 2025-05-22 22:54 ET
 
 ## Overview
 
@@ -26,21 +26,24 @@ git config --local core.autocrlf input
 ### Starting Work on a New Task
 
 ```bash
-# Ensure you have the latest main branch
-git checkout main
-git pull origin main
+# Ensure you have the latest develop branch
+git checkout develop
+git pull origin develop
 
 # Create a new branch using our naming convention
-git checkout -b feature/0-1-initialize-vite
+git checkout -b c{conversation#}-feature/{task#}-{description}-{model}
+# Example
+git checkout -b c5-feature/0.14-zustand-store-swe-1
 ```
 
 ## Branching Strategy
 
-We use a simplified GitHub Flow with semantic branch naming that includes model information when relevant:
+We use a feature-branch workflow with an integration branch and semantic naming that includes conversation number and model information:
 
 | Branch Type | Purpose | Naming Convention | Example |
-|-------------|---------|-------------------|---------|
-| `feature/*` | New functionality | `feature/<task-id>-<description>[-<model>]` | `feature/1-3-chat-component-swe1` |
+|-------------|---------|-------------------|----------|
+| `develop` | Integration branch | `develop` | `develop` |
+| `c*-feature/*` | New functionality | `c{conversation#}-feature/{task#}-{description}-{model}` | `c4-feature/0.11-routing-implementation-swe-1` |
 | `bugfix/*` | Fix issues | `bugfix/<issue-id>-<description>[-<model>]` | `bugfix/23-message-display-s37` |
 | `refactor/*` | Code improvements | `refactor/<task-id>-<description>[-<model>]` | `refactor/chat-state-swe1` |
 | `docs/*` | Documentation only | `docs/<description>[-<model>]` | `docs/update-readme-s37` |
@@ -99,31 +102,32 @@ test(api): add mock response tests for error handling
 ## Development Workflow
 
 1. **Select a task** from the DevProgress.md document
-2. **Create a branch** using the appropriate naming convention
+2. **Create a branch from develop** using the appropriate naming convention
 3. **Implement the changes** following our code quality guidelines
 4. **Commit regularly** with descriptive commit messages
 5. **Push your branch** to GitHub
-6. **Create a Pull Request** using the PR template
+6. **Create a Pull Request** against the `develop` branch using the PR template
 7. **Address review feedback** by making additional commits
-8. **Merge** once approved and CI passes
+8. **Merge** into `develop` once approved and CI passes
+9. **Add a tag** to mark important milestones (e.g., `phase0-complete`)
 
 ## Pull Request Process
 
-1. Create the PR against the `main` branch
+1. Create the PR against the `develop` branch
 2. Fill out the PR template completely
 3. Assign reviewers
 4. Address all feedback
 5. Ensure CI checks pass
-6. Use "Squash and merge" when merging to keep `main` history clean
+6. Use "Squash and merge" when merging to keep `develop` history clean
 
 ## Advanced Git Commands
 
-### Updating Your Branch with Latest Main
+### Updating Your Branch with Latest Develop
 
 ```bash
 # While on your feature branch
 git fetch origin
-git rebase origin/main
+git rebase origin/develop
 
 # If you have conflicts, resolve them and then
 git add .
@@ -145,13 +149,13 @@ git commit --fixup=<commit-hash>
 # Rebase the last N commits
 git rebase -i HEAD~N
 
-# Or rebase all commits since branching from main
-git rebase -i origin/main
+# Or rebase all commits since branching from develop
+git rebase -i origin/develop
 ```
 
 ## GitHub Actions CI
 
-Our CI pipeline automatically runs on all pull requests and pushes to `main`, checking:
+Our CI pipeline automatically runs on all pull requests and pushes to `develop`, checking:
 
 1. Code linting
 2. Type checking
@@ -165,7 +169,7 @@ Our CI pipeline automatically runs on all pull requests and pushes to `main`, ch
 3. **Write Clear Commit Messages**: Follow the conventional commits standard
 4. **Reference Tasks/Issues**: Include task IDs in branch names and commit messages
 5. **Update Documentation**: Keep documentation in sync with code changes
-6. **Pull Regularly**: Frequently update your branch with changes from `main`
+6. **Pull Regularly**: Frequently update your branch with changes from `develop`
 
 ## Including Git Context in Handoffs
 
@@ -192,8 +196,8 @@ To ensure we're always working on the correct branch, we've implemented a mandat
 2. **Pre-Session Checklist**:
    ```
    - [ ] Verify current branch (`git branch --show-current`)
-   - [ ] Create feature branch if needed (`git checkout -b feature/X-Y-description`)
-   - [ ] Push branch to remote (`git push -u origin feature/X-Y-description`)
+   - [ ] Create feature branch if needed (`git checkout -b c{conversation#}-feature/{task#}-{description}-{model}`)
+   - [ ] Push branch to remote (`git push -u origin c{conversation#}-feature/{task#}-{description}-{model}`)
    ```
 
 3. **Git Aliases for Streamlined Workflow**:
@@ -201,14 +205,14 @@ To ensure we're always working on the correct branch, we've implemented a mandat
    Add these to your `.gitconfig`:
    ```
    [alias]
-     start-task = "!f() { git checkout -b \"feature/$1\" && git push -u origin \"feature/$1\"; }; f"
+     start-task = "!f() { git checkout develop && git pull && git checkout -b \"c$1-feature/$2\" && git push -u origin \"c$1-feature/$2\"; }; f"
      task-done = "!f() { git add . && git commit -m \"$1\" && git push; }; f"
    ```
 
    Usage:
    ```bash
    # Start new task
-   git start-task 0-1-initialize-vite
+   git start-task 5 0.14-zustand-store-swe-1
 
    # Commit and push changes
    git task-done "feat(setup): initialize vite project"
@@ -219,7 +223,7 @@ To ensure we're always working on the correct branch, we've implemented a mandat
 We plan to implement Git hooks to:
 - Verify branch naming conventions
 - Validate commit message format
-- Prevent direct commits to main
+- Prevent direct commits to develop or main
 
 ## Questions or Issues?
 
