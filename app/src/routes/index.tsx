@@ -1,13 +1,30 @@
 /**
  * @file index.tsx
  * @description Application routes configuration
- * Configured to work with React Router v7 and Vite using HashRouter for reliable client-side routing
+ * Configured to work with React Router v7 and Vite.
+ * 
+ * Router Selection Notes:
+ * - BrowserRouter (current): Uses clean URLs (e.g., /home, /settings) but requires server configuration
+ *   to serve the index.html for all routes in production. This is the recommended approach for new applications.
+ *   KNOWN ISSUE: There's a current issue where clicking the Home tab causes a full page refresh instead of a client-side
+ *   navigation. This is likely due to how the root route ('/') is being handled in the navigation setup.
+ * 
+ * - HashRouter (alternative): Uses URLs with # (e.g., /#/home, /#/settings) which works without server
+ *   configuration but has less clean URLs. This was previously used to avoid server configuration issues
+ *   but has been replaced with BrowserRouter for better UX. The HashRouter might behave better with the
+ *   current navigation setup if the refresh issue becomes problematic.
+ * 
+ * If you need to switch back to HashRouter in the future, make these changes:
+ * 1. Replace createBrowserRouter with createHashRouter
+ * 2. Update the vite.config.ts to remove any BrowserRouter-specific settings
+ * 3. Update all internal links to work with hash-based routing
+ * 
  * @created 2025-05-22 22:15 ET
- * @lastUpdated 2025-05-22 22:44 ET
+ * @lastUpdated 2025-05-24 09:25 ET
  * @module routes
  */
 
-import { createHashRouter, Navigate } from 'react-router-dom';
+import { createBrowserRouter, Navigate } from 'react-router-dom';
 import Layout from '../components/layout/Layout';
 import HomePage from '../pages/HomePage';
 import LoginForm from '../features/auth/components/LoginForm';
@@ -28,16 +45,11 @@ const LayoutWithErrorBoundary = ({ children }: { children: React.ReactNode }) =>
 );
 
 /**
- * Main application routes configuration
- * Using React Router v7 with createBrowserRouter
+ * Main application router using BrowserRouter for clean URLs and client-side routing
+ * This approach provides better UX with clean URLs while maintaining client-side routing
  * @see https://reactrouter.com/en/main/routers/create-browser-router
  */
-/**
- * Main application router using HashRouter for reliable client-side routing
- * This approach ensures proper page refreshes and direct URL access without server configuration
- * @see https://reactrouter.com/en/main/routers/create-hash-router
- */
-export const router = createHashRouter(
+export const router = createBrowserRouter(
   [
     {
       path: '/',

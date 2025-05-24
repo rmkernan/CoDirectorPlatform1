@@ -8,9 +8,26 @@
  * @module pages/HomePage
  */
 
+/**
+ * @file HomePage.tsx
+ * @description Main landing page component for the Co-Director Platform application.
+ * Displays welcome message, feature cards, getting started guide, and testimonials.
+ * Includes responsive UI elements and interactive content sections.
+ * @created 2025-05-22 19:52 ET
+ * @lastUpdated 2025-05-24 09:06 ET
+ * @module pages/HomePage
+ */
+
 import React from 'react';
 import { Box, Typography, Paper, Grid, Divider, List, ListItem, ListItemText, ListItemIcon } from '@mui/material';
-import { Code, BugReport, Storage, Security, Build, Cloud } from '@mui/icons-material';
+
+// Import individual icons for better tree-shaking and smaller bundle size
+import Code from '@mui/icons-material/Code';
+import BugReport from '@mui/icons-material/BugReport';
+import Storage from '@mui/icons-material/Storage';
+import Security from '@mui/icons-material/Security';
+import Build from '@mui/icons-material/Build';
+import Cloud from '@mui/icons-material/Cloud';
 
 /**
  * Home page component that serves as the landing page for the application.
