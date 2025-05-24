@@ -1,7 +1,7 @@
 # Co-Director Platform: AI-Assisted Development Guide
 
 **Created:** 2025-05-22, 02:57 PM ET  
-**Last Updated:** 2025-05-24, 08:43 ET
+**Last Updated:** 2025-05-24, 10:35 ET
 
 ## Introduction
 
@@ -18,12 +18,12 @@ This document contains ready-to-use prompts for different AI interactions during
 
 | Document | Purpose | When To Reference |
 |----------|---------|-------------------|
-| **LatestSessionHandoff.md** | Current session state | Before starting each session |
-| **SessionHandoff.md** | Archive of historical handoffs | For historical context, if needed |
-| **DevProgress.md** | Task status and tracking | When planning work or updating progress |
-| **GitWorkflow.md** | Git branching strategy | When creating branches or merging changes |
-| **TechnicalPatterns.md** | Implementation patterns | Before implementing new features |
-| **DEV_CHECKLIST.md** | Development process | Throughout development |
+| **Docs/process/LatestSessionHandoff.md** | Current session state | Before starting each session |
+| **Docs/process/SessionHandoff.md** | Archive of historical handoffs | For historical context, if needed |
+| **Docs/process/DevProgress.md** | Task status and tracking | When planning work or updating progress |
+| **Docs/process/GitWorkflow.md** | Git branching strategy | When creating branches or merging changes |
+| **Docs/technical/TechnicalPatterns.md** | Implementation patterns | Before implementing new features |
+| **Docs/process/DEV_CHECKLIST.md** | Development process | Throughout development |
 
 ## AI Development Prompts
 
@@ -33,17 +33,19 @@ This document contains ready-to-use prompts for different AI interactions during
 
 **Purpose:** Orients the AI to the current project state, ensures proper Git workflow, and plans the session's work
 
-```
+
 # Co-Director Platform: New Development Session
 
 I'm starting a new development session. First, here's my current Git status:
 
-```bash
-# Output from these commands:
-git branch --show-current
-git status
-```
- c1-feature/0.1to08.-initialize-vite-swe1
+
+PS C:\PythonProjects\CoDirectorPlatform1> git status
+On branch c8-feature/0.18-.22-localStorage-utils
+Your branch is up to date with 'origin/c8-feature/0.18-.22-localStorage-utils'.
+
+nothing to commit, working tree clean
+PS C:\PythonProjects\CoDirectorPlatform1> git branch
+  c1-feature/0.1to08.-initialize-vite-swe1
   c2-fix/comment-code-swe-1
   c3-feature/0.9-complete-folder-structure-swe-1
   c4-feature/0.10-theme-configuration-swe-1
@@ -53,9 +55,6 @@ git status
 * c8-feature/0.18-.22-localStorage-utils
   develop
   main
-PS C:\PythonProjects\CoDirectorPlatform1\app> git status
-On branch c8-feature/0.18-.22-localStorage-utils
-Your branch is up to date with 'origin/c8-feature/0.18-.22-localStorage-utils'.
 
 ## 1. Project Orientation
 
@@ -63,28 +62,28 @@ Your branch is up to date with 'origin/c8-feature/0.18-.22-localStorage-utils'.
 Follow this exact process to navigate project documentation:
 
 #### Step 1: Get Latest Context
-- Review **LatestSessionHandoff.md** - Read this file to understand the most recent handoff.
+- Review **Docs/process/LatestSessionHandoff.md** - Read this file to understand the most recent handoff.
   - Understand what was accomplished in the previous session.
   - Note any specific instructions for this session.
-- (Optional) Review **SessionHandoff.md** - Consult this archive if historical context from older sessions is needed.
+- (Optional) Review **Docs/process/SessionHandoff.md** - Consult this archive if historical context from older sessions is needed.
 
 #### Step 2: Identify Task Status (High-Level Overview)
-- Review **DevProgress.md** 
+- Review **Docs/process/DevProgress.md** 
   - Identify completed tasks (✅) and in-progress tasks (🔄)
   - Note which numbered tasks should logically come next
   - Understand high-level task categories and priorities
 
 #### Step 3: Get Detailed Implementation Plan
 - For the specific tasks identified in Step 2:
-  - **FIRST** check **Implementation-Index.md** to locate the exact task references
-  - **THEN** open **Implementation.md** using the section references from the index
+  - **FIRST** check **Docs/technical/Implementation-Index.md** to locate the exact task references
+  - **THEN** open **Docs/technical/Implementation.md** using the section references from the index
   - Study the detailed implementation steps for those tasks
-  - Refer to **Implementation-Updates.md** for recently completed tasks not yet merged into the main document
+  - Refer to **Docs/technical/Implementation-Updates.md** for recently completed tasks not yet merged into the main document
   - Note any dependencies or special requirements
   - Understand how these tasks connect to the overall architecture
 
 #### Step 4: Understand Technical Patterns
-- Review **TechnicalPatterns.md** for implementation patterns relevant to the identified tasks
+- Review **Docs/technical/TechnicalPatterns.md** for implementation patterns relevant to the identified tasks
   - Focus on patterns that directly apply to the upcoming work
 
 ### 1.2 Document Awareness
@@ -92,18 +91,18 @@ The project contains the following important documents that you should be aware 
 
 | Document | Location | Purpose | When to Reference |
 |----------|----------|---------|----------------|
-| **TDD-Index.md** | Docs/technical/ | Navigation guide for the TDD | **1st**: Always check this BEFORE accessing TDD.md |
-| **Implementation-Index.md** | Docs/technical/ | **Task navigator** for Implementation.md | **1st**: Always check this BEFORE accessing Implementation.md |
-| **CodeStandards.md** | Docs/technical/ | **Primary reference** for code organization & basic documentation | Start here for all implementation tasks |
-| **DOCUMENTATION_STANDARDS.md** | Docs/process/ | Comprehensive JSDoc reference | When CodeStandards.md doesn't have enough detail |
-| **LLM_FILE_CREATION_GUIDELINES.md** | Docs/process/ | Specific file header templates | **Always reference when creating new files** |
-| **BestPractices.md** | Docs/process/ | General development guidelines, code quality, file/function length limits, and review processes. For specific Git commands and branching strategy, see `GitWorkflow.md`. | For process-related questions |
-| **TechnicalPatterns.md** | Docs/technical/ | Implementation patterns | For consistent code structure and patterns |
-| **TDD.md** | Docs/technical/ | Technical Design Document | **AFTER** consulting TDD-Index.md for relevant sections |
-| **ADD.md** | Docs/technical/ | Architectural Design Document | For high-level architectural patterns |
-| **Implementation.md** | Docs/technical/ | **Critical implementation plan** with detailed task breakdown | **AFTER** consulting Implementation-Index.md for specific tasks |
+| **Docs/technical/TDD-Index.md** | Docs/technical/ | Navigation guide for the TDD | **1st**: Always check this BEFORE accessing Docs/technical/TDD.md |
+| **Docs/technical/Implementation-Index.md** | Docs/technical/ | **Task navigator** for Docs/technical/Implementation.md | **1st**: Always check this BEFORE accessing Docs/technical/Implementation.md |
+| **Docs/technical/CodeStandards.md** | Docs/technical/ | **Primary reference** for code organization & basic documentation | Start here for all implementation tasks |
+| **Docs/process/DOCUMENTATION_STANDARDS.md** | Docs/process/ | Comprehensive JSDoc reference | When Docs/technical/CodeStandards.md doesn't have enough detail |
+| **Docs/process/LLM_FILE_CREATION_GUIDELINES.md** | Docs/process/ | Specific file header templates | **Always reference when creating new files** |
+| **Docs/process/BestPractices.md** | Docs/process/ | General development guidelines, code quality, file/function length limits, and review processes. For specific Git commands and branching strategy, see `Docs/process/GitWorkflow.md`. | For process-related questions |
+| **Docs/technical/TechnicalPatterns.md** | Docs/technical/ | Implementation patterns | For consistent code structure and patterns |
+| **Docs/technical/TDD.md** | Docs/technical/ | Technical Design Document | **AFTER** consulting Docs/technical/TDD-Index.md for relevant sections |
+| **Docs/technical/ADD.md** | Docs/technical/ | Architectural Design Document | For high-level architectural patterns |
+| **Docs/technical/Implementation.md** | Docs/technical/ | **Critical implementation plan** with detailed task breakdown | **AFTER** consulting Docs/technical/Implementation-Index.md for specific tasks |
 
-**IMPORTANT**: Never attempt to read the entire TDD.md directly - it's too large. Instead, ALWAYS check TDD-Index.md first to locate specific sections you need, then access only those sections of TDD.md.
+**IMPORTANT**: Never attempt to read the entire Docs/technical/TDD.md directly - it's too large. Instead, ALWAYS check Docs/technical/TDD-Index.md first to locate specific sections you need, then access only those sections of Docs/technical/TDD.md.
 
 ## 2. Summarize Project State
 
@@ -116,16 +115,16 @@ The project contains the following important documents that you should be aware 
 After completing the document navigation process, provide a concise task plan:
 
 1. **Propose Next Tasks:**
-   - Based on **DevProgress.md** status and **Implementation.md** details, identify the next 2-3 sequential tasks that:
-     - Follow the established task numbering and ordering in Implementation.md
+   - Based on **Docs/process/DevProgress.md** status and **Docs/technical/Implementation.md** details, identify the next 2-3 sequential tasks that:
+     - Follow the established task numbering and ordering in Docs/technical/Implementation.md
      - Build logically on previously completed work
      - Can be accomplished in a single conversation without approaching token limits
 
-**Guideline on Task Proposal Granularity:** When identifying tasks, aim to propose 1-2 primary tasks from `Implementation.md` at a time. This defines a manageable chunk of work for review and iteration. The USER will confirm the final scope. This approach also supports prioritizing frequent commits within a feature branch after each distinct task is completed and approved.
+**Guideline on Task Proposal Granularity:** When identifying tasks, aim to propose 1-2 primary tasks from `Docs/technical/Implementation.md` at a time. This defines a manageable chunk of work for review and iteration. The USER will confirm the final scope. This approach also supports prioritizing frequent commits within a feature branch after each distinct task is completed and approved.
 
 2. **Technical Implementation Details:**
-   - For each proposed task, summarize the specific implementation steps from Implementation.md
-   - Reference any relevant architecture details from ADD.md or TDD.md (using TDD-Index.md first)
+   - For each proposed task, summarize the specific implementation steps from Docs/technical/Implementation.md
+   - Reference any relevant architecture details from Docs/technical/ADD.md or Docs/technical/TDD.md (using Docs/technical/TDD-Index.md first)
    - Explain any dependencies between these tasks
 
 3. **Preparation & Resources:**
@@ -134,14 +133,14 @@ After completing the document navigation process, provide a concise task plan:
    - Cite specific sections of our technical documentation that will guide implementation
 
 4. **Tracking & Documentation:**
-   - Suggest how to document progress in DevProgress.md when these tasks are completed
-   - Note any potential updates needed for Implementation.md based on your understanding
+   - Suggest how to document progress in Docs/process/DevProgress.md when these tasks are completed
+   - Note any potential updates needed for Docs/technical/Implementation.md based on your understanding
 
 5. Ask user to review and approve
 
 ## 4. Branch Management
 
-Please review ONLY the "Quick Reference: Branching Strategy" section at the top of GitWorkflow.md, then:
+Please review ONLY the "Quick Reference: Branching Strategy" section at the top of Docs/process/GitWorkflow.md, then:
 
 1. Our last conversation was C8. Based on the tasks we'll work on, propose a new branch name following our convention:
    - For feature development: `c5-feature/[task#]-[description]-[model]`
@@ -156,7 +155,7 @@ Please review ONLY the "Quick Reference: Branching Strategy" section at the top 
    - Creating the new branch
    - Pushing it to origin
 
-```
+
 
 
 ### PROMPT 2: Begin Implementation
@@ -175,9 +174,9 @@ Let's proceed. For the first task:
 1. Please use the available tools to gather all necessary information following this exact process:
 
    a) **Task-Specific Implementation Details:**
-      - **FIRST** check **Implementation-Index.md** to locate the exact task references
-      - **THEN** open **Implementation.md** using the section references from the index
-      - For recently completed tasks, check **Implementation-Updates.md** for more current details
+      - **FIRST** check **Docs/technical/Implementation-Index.md** to locate the exact task references
+      - **THEN** open **Docs/technical/Implementation.md** using the section references from the index
+      - For recently completed tasks, check **Docs/technical/Implementation-Updates.md** for more current details
       - Study the detailed steps, dependencies, and requirements for this specific task
       - Note any architectural connections mentioned
 
@@ -187,17 +186,17 @@ Let's proceed. For the first task:
       - Note folder structure and organization of related components
 
    c) **Technical Standards:**
-      - Review **CodeStandards.md** for folder structure and basic documentation requirements
-      - Check **DOCUMENTATION_STANDARDS.md** for JSDoc format and timestamp requirements (YYYY-MM-DD HH:MM ET)
-      - Review **LLM_FILE_CREATION_GUIDELINES.md** when creating new files
-      - Reference **BestPractices.md** for code quality guidelines
+      - Review **Docs/technical/CodeStandards.md** for folder structure and basic documentation requirements
+      - Check **Docs/process/DOCUMENTATION_STANDARDS.md** for JSDoc format and timestamp requirements (YYYY-MM-DD HH:MM ET)
+      - Review **Docs/process/LLM_FILE_CREATION_GUIDELINES.md** when creating new files
+      - Reference **Docs/process/BestPractices.md** for code quality guidelines
 
    d) **Architecture & Patterns:**
-      - Review **TechnicalPatterns.md** for implementation patterns specific to this task
+      - Review **Docs/technical/TechnicalPatterns.md** for implementation patterns specific to this task
       - For deeper architectural guidance:
-        1. FIRST check **TDD-Index.md** to locate relevant sections
-        2. THEN reference only those specific sections in **TDD.md**
-        3. If needed, consult specific sections of **ADD.md** for higher-level architecture
+        1. FIRST check **Docs/technical/TDD-Index.md** to locate relevant sections
+        2. THEN reference only those specific sections in **Docs/technical/TDD.md**
+        3. If needed, consult specific sections of **Docs/technical/ADD.md** for higher-level architecture
 
    e) **External Research:**
       - Use Context7 MCP to research best practices for [RELEVANT_LIBRARY/TECHNOLOGY]
@@ -238,7 +237,7 @@ We're wrapping up this session. Lets follow our Git workflow and create a proper
 
 Prepare updates for:
 
-1. **DevProgress.md:**
+1. **Docs/process/DevProgress.md:**
    - Update the status of tasks we worked on
    - Mark completed tasks with ✅ and in-progress with 🔄
 
@@ -246,21 +245,21 @@ Prepare updates for:
    a. **Update `Docs/technical/Implementation-Updates.md` (Record of Actuals & Deviations for Current/Completed Work):**
       - Review and update this file to accurately reflect all tasks worked on during the session.
       - For each task, detail the *actual implementation approach* taken.
-      - If this actual implementation deviated from what was originally planned (e.g., in `Implementation.md` or `TDD.md`), clearly document these deviations and the rationale within `Implementation-Updates.md`.
-      - If new sub-tasks, dependencies, or unforeseen issues arose during the session's work, document them here. Ensure these are also cross-referenced in `DevProgress.md` if they create new trackable items or alter task statuses.
-      - Mark new or significantly updated sections in `Implementation-Updates.md` with the current timestamp (e.g., "Updated: YYYY-MM-DD HH:MM ET").
+      - If this actual implementation deviated from what was originally planned (e.g., in `Docs/technical/Implementation.md` or `Docs/technical/TDD.md`), clearly document these deviations and the rationale within `Docs/technical/Implementation-Updates.md`.
+      - If new sub-tasks, dependencies, or unforeseen issues arose during the session's work, document them here. Ensure these are also cross-referenced in `Docs/process/DevProgress.md` if they create new trackable items or alter task statuses.
+      - Mark new or significantly updated sections in `Docs/technical/Implementation-Updates.md` with the current timestamp (e.g., "Updated: YYYY-MM-DD HH:MM ET").
 
    b. **Review and Potentially Update `Docs/technical/Implementation.md` (The Overall Plan - If Future Plans Change):**
-      - Based on the work completed, decisions made, or new insights gained during the session, consider if the *planned approach, scope, or steps for future, unstarted tasks* as outlined in `Implementation.md` need revision.
-      - If significant changes to the *plan for future work* are necessary, update the relevant sections in `Implementation.md` itself.
-      - Clearly indicate any such updates within `Implementation.md` (e.g., with a timestamp or a note explaining the revision to the plan for those future tasks).
+      - Based on the work completed, decisions made, or new insights gained during the session, consider if the *planned approach, scope, or steps for future, unstarted tasks* as outlined in `Docs/technical/Implementation.md` need revision.
+      - If significant changes to the *plan for future work* are necessary, update the relevant sections in `Docs/technical/Implementation.md` itself.
+      - Clearly indicate any such updates within `Docs/technical/Implementation.md` (e.g., with a timestamp or a note explaining the revision to the plan for those future tasks).
 
 3. **Session Handoff Documentation:**
-   a. **Archive Previous Handoff to `SessionHandoff.md`:**
+   a. **Archive Previous Handoff to `Docs/process/SessionHandoff.md`:**
       - **Action:** Copy the *entire current content* of `Docs/process/LatestSessionHandoff.md` (this is the handoff from the *previous* session).
       - **Update Archive:** Prepend this copied content to `Docs/process/SessionHandoff.md`. It should be placed under the "Historical Handoffs" section, typically after a horizontal rule (`---`) or similar separator, making it the newest entry in the archive.
-      - **Timestamp Archive:** Update the `Last Updated:` timestamp at the top of `SessionHandoff.md`.
-   b. **Update `LatestSessionHandoff.md` for the Current Session:**
+      - **Timestamp Archive:** Update the `Last Updated:` timestamp at the top of `Docs/process/SessionHandoff.md`.
+   b. **Update `Docs/process/LatestSessionHandoff.md` for the Current Session:**
       - **Overwrite Content:** This file should *only* contain the handoff for the session that is *just concluding*. Replace its entire content.
       - **File Header:** Update `@created` and `@lastUpdated` timestamps in the file header comment.
       - **Handoff Details:**
@@ -340,7 +339,7 @@ git status
 
 Please:
 
-1. Check the "Latest Handoff" section in LatestSessionHandoff.md ONLY
+1. Check the "Latest Handoff" section in Docs/process/LatestSessionHandoff.md ONLY
 
 2. Identify:
    - The task(s) we were implementing
