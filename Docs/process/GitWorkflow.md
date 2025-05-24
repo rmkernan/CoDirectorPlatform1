@@ -1,7 +1,7 @@
 # Co-Director Platform: Git Workflow Guide
 
 **Created:** 2025-05-22, 03:45 PM ET  
-**Last Updated:** 2025-05-23 10:35 ET
+**Last Updated:** 2025-05-23 15:55 ET
 
 ## Quick Reference: Branching Strategy
 
@@ -145,6 +145,100 @@ test(api): add mock response tests for error handling
 7. **Address review feedback** by making additional commits
 8. **Merge** into `develop` once approved and CI passes
 9. **Add a tag** to mark important milestones (e.g., `phase0-complete`)
+
+## Detailed Feature Development Lifecycle
+
+The development process, especially when working iteratively (e.g., with an AI assistant like Cascade), involves a cycle of creating a dedicated feature branch, implementing changes, committing work regularly, and then integrating those changes back into the main `develop` branch. This ensures that `develop` always represents a stable, integrated version of the project, while new work is isolated on feature branches. Clear communication, often facilitated by updating `SessionHandoff.md`, is key when pausing or completing work on a feature branch.
+
+Here’s a step-by-step guide for the lifecycle of a feature branch:
+
+**1. Starting a New Feature or Task:**
+
+   a. **Switch to `develop`:** Ensure you are on the `develop` branch.
+      ```bash
+      git checkout develop
+      ```
+   b. **Update Local `develop`:** Pull the latest changes for `develop` from the remote repository (GitHub) to ensure your local `develop` is synchronized.
+      ```bash
+      git pull origin develop
+      ```
+   c. **Create Feature Branch:** Create a new feature branch from the up-to-date `develop` branch. Use the project's naming convention (e.g., `c{X}-feature/{task#}-{description}`).
+      ```bash
+      git checkout -b cX-feature/task-description
+      ```
+   d. **Push New Branch to Remote:** Immediately push the newly created feature branch to the remote repository. This establishes tracking and makes the branch visible to others (if applicable).
+      ```bash
+      git push -u origin cX-feature/task-description
+      ```
+
+**2. Working on the Feature Branch:**
+
+   a. **Implement Changes:** Make your code changes, add new files, update documentation, and write tests as required for the feature or task.
+   b. **Commit Regularly:** Commit your work frequently with clear, descriptive messages following the Conventional Commits standard.
+      ```bash
+      git add .
+      git commit -m "feat(scope): concise description of change"
+      ```
+   c. **Push Commits:** Periodically push your local commits on the feature branch to its remote counterpart.
+      ```bash
+      git push origin cX-feature/task-description
+      ```
+   d. **(Optional) Keep Branch Updated:** If your feature branch work spans a long time, or if `develop` is very active, periodically update your feature branch with the latest changes from `develop`. This can be done using `git rebase origin/develop` (as mentioned in 'Advanced Git Commands') or `git merge origin/develop`. Rebasing is often preferred for a cleaner history before merging back to `develop`.
+
+**3. Completing the Feature or Session:**
+
+   a. **Finalize Work:** Ensure all development, documentation, and testing for the feature (or the current session's scope) are complete on the feature branch.
+   b. **Update Session Handoff:** If pausing work or preparing for merge, update `Docs/process/SessionHandoff.md` with the current status, key accomplishments, and next steps.
+   c. **Commit Final Changes:** Commit any last-minute changes, including the handoff document update.
+   d. **Push All Changes:** Ensure all local commits on the feature branch are pushed to the remote.
+      ```bash
+      git push origin cX-feature/task-description
+      ```
+
+**4. Merging the Feature Branch into `develop`:**
+
+   a. **Switch to `develop`:** Check out your local `develop` branch.
+      ```bash
+      git checkout develop
+      ```
+   b. **Update Local `develop` (Again):** Pull the latest changes for `develop` from the remote. This is crucial to ensure you're merging into the absolute latest version of `develop`, especially if other work has been merged since you started your feature branch or last pulled.
+      ```bash
+      git pull origin develop
+      ```
+   c. **Merge Feature Branch:** Merge your completed feature branch into your local `develop` branch. This integrates all commits from the feature branch into `develop`.
+      ```bash
+      git merge cX-feature/task-description
+      ```
+   d. **Resolve Conflicts (If Any):** If Git reports merge conflicts, you must resolve them manually. Open the conflicted files, edit them to incorporate changes from both branches correctly, save the files, and then stage them.
+      ```bash
+      git add <conflicted-file-1> <conflicted-file-2>
+      ```
+      Once all conflicts are resolved and staged, continue the merge, which usually involves a commit.
+      ```bash
+      git commit  # Git often pre-fills the merge commit message
+      # Or, if prompted by Git during the merge process, follow its instructions.
+      ```
+
+**5. Pushing Merged `develop` to Remote:**
+
+   a. **Push `develop`:** After the feature branch has been successfully merged into your local `develop` branch (and any conflicts resolved), push the updated `develop` branch to the remote repository.
+      ```bash
+      git push origin develop
+      ```
+      Now, the `develop` branch on GitHub contains the newly integrated feature.
+
+**6. Cleaning Up (Optional but Recommended):**
+
+   a. **Delete Local Feature Branch:** Once the feature branch is merged into `develop` and `develop` is pushed, you can delete the local copy of the feature branch.
+      ```bash
+      git branch -d cX-feature/task-description
+      ```
+   b. **Delete Remote Feature Branch:** You can also delete the feature branch from the remote repository (GitHub) if it's no longer needed.
+      ```bash
+      git push origin --delete cX-feature/task-description
+      ```
+
+This detailed lifecycle helps maintain a clean and understandable project history, facilitates collaboration, and ensures that the `develop` branch remains a reliable source of truth for the project's current integrated state.
 
 ## Pull Request Process
 

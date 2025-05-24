@@ -26,16 +26,28 @@ export default defineConfig({
     port: 3000,
     open: true,
     strictPort: true,
-    // Handle SPA fallback for client-side routing
+    // Handle SPA fallback for client-side routing with BrowserRouter
     fs: {
       strict: false,
     },
+    // Enable CORS for development
+    cors: true,
+    // Proxy API requests if needed
+    proxy: {
+      '/api': {
+        target: 'http://localhost:3001',
+        changeOrigin: true,
+        secure: false,
+      },
+    },
   },
-  // Configure SPA settings for HashRouter-based client-side routing
-  // This enables reliable navigation, direct URL access, and page refreshes
-  // without requiring special server configuration
+  // Configure SPA settings for client-side routing with BrowserRouter
+  // This setup enables clean URLs and client-side routing
+  // Note: For production, ensure your server is configured to serve index.html for all routes
+  // If using Vercel, Netlify, or similar, they handle this automatically
+  // For custom servers, you might need to configure URL rewriting
   appType: 'spa',
-  base: '/',
+  base: '/', // Base URL for the application (empty string or '/' for root)
   preview: {
     port: 3000,
     strictPort: true,

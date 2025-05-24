@@ -7,16 +7,25 @@
  * @module components/layout/Sidebar
  */
 
+/**
+ * @file Sidebar.tsx
+ * @description Navigation sidebar component that provides application navigation.
+ * Includes responsive design for both mobile and desktop viewing modes.
+ * @created 2025-05-22 19:52 ET
+ * @lastUpdated 2025-05-24 09:06 ET
+ * @module components/layout/Sidebar
+ */
+
 import React from 'react';
 import { Drawer, List, ListItemButton, ListItemIcon, ListItemText, Toolbar, useMediaQuery } from '@mui/material';
 import { useTheme } from '@mui/material/styles';
-import { useNavigate, useLocation } from 'react-router-dom';
-import {
-  Settings as SettingsIcon,
-  Chat as ChatIcon,
-  History as HistoryIcon,
-  Home as HomeIcon,
-} from '@mui/icons-material';
+import { useLocation, Link as RouterLink } from 'react-router-dom';
+
+// Import individual icons for better tree-shaking and smaller bundle size
+import SettingsIcon from '@mui/icons-material/Settings';
+import ChatIcon from '@mui/icons-material/Chat';
+import HistoryIcon from '@mui/icons-material/History';
+import HomeIcon from '@mui/icons-material/Home';
 import { ReactNode } from 'react';
 
 /**
@@ -63,9 +72,10 @@ interface SidebarProps {
  */
 export const Sidebar: React.FC<SidebarProps> = ({ mobileOpen, onClose }) => {
   const theme = useTheme();
-  const navigate = useNavigate();
   const location = useLocation();
   const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
+  
+  // Close mobile drawer when an item is clicked (handled by Link's onClick)
 
   const drawer = (
     <div>
@@ -74,10 +84,9 @@ export const Sidebar: React.FC<SidebarProps> = ({ mobileOpen, onClose }) => {
         {sidebarItems.map((item) => (
           <ListItemButton
             key={item.text}
-            onClick={() => {
-              navigate(item.path);
-              if (isMobile) onClose();
-            }}
+            component={RouterLink}
+            to={item.path}
+            onClick={() => isMobile && onClose()}
             selected={location.pathname === item.path}
             sx={{
               '&.Mui-selected': {
@@ -85,6 +94,12 @@ export const Sidebar: React.FC<SidebarProps> = ({ mobileOpen, onClose }) => {
                 '&:hover': {
                   backgroundColor: 'rgba(25, 118, 210, 0.15)',
                 },
+              },
+              // Remove default link styles
+              textDecoration: 'none',
+              color: 'inherit',
+              '&:hover': {
+                textDecoration: 'none',
               },
             }}
           >
