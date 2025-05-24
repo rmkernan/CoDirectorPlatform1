@@ -3,7 +3,7 @@
  * @file store.types.ts
  * @description Defines TypeScript interfaces and types for the Zustand store, including states and actions for various slices.
  * @created 2025-05-23 12:03 ET
- * @lastUpdated 2025-05-23 12:03 ET
+ * @lastUpdated 2025-05-24 08:21 ET
  * @module src/store/store.types
  */
 
@@ -71,6 +71,8 @@ export interface SettingsSliceState {
   mockApiEnabled: boolean;
   /** Language preference for the application. Example: 'en', 'es'. */
   language: string;
+  /** Indicates if the application is currently in development mode. */
+  isDevelopmentMode: boolean;
 }
 
 /**
@@ -93,6 +95,19 @@ export interface SettingsSliceActions {
    * @param lang - The language code (e.g., 'en', 'es').
    */
   setLanguage: (lang: string) => void;
+
+  /**
+   * Toggles the development mode on or off.
+   * This also updates the logger's internal state.
+   */
+  toggleDevelopmentMode: () => void;
+
+  /**
+   * Sets the development mode to a specific state.
+   * This also updates the logger's internal state.
+   * @param isDev - True to enable development mode, false to disable.
+   */
+  setDevelopmentMode: (isDev: boolean) => void;
 }
 
 /**
